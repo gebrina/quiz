@@ -17,6 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel="icon" type="image/x-icon" href="/logo.ico" />
       <body className={condensed.className}>
         <Header />
         {children}

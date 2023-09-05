@@ -7,7 +7,7 @@
     @apply h-screen w-screen  bg-center bg-fixed bg-cover bg-gradient-to-br;
     background: linear-gradient(
         to top right,
-        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.7),
         rgba(0, 25, 56, 0.8)
       ),
       url(/test.png);
