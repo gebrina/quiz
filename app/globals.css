@@ -19,4 +19,8 @@
   .active-btn {
     @apply bg-slate-900 text-slate-300;
   }
+
+  .input-control {
+    @apply bg-transparent outline-none py-1 px-2 text-lg focus:bg-transparent hover:bg-opacity-25 rounded-sm bg-slate-300 bg-opacity-10 border-[1px] border-slate-400;
+  }
 }
