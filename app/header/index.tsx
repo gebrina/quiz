@@ -37,11 +37,15 @@ const Header = () => {
         </Link>
       </section>
       <section className="flex  border-2 rounded bg-yellow-900 group border-yellow-500 ">
-        <button className="px-2">
+        <button
+          className={`px-2 ${pathname.includes("register") && "active-btn"}`}
+        >
           <Link href="/user/register">Register</Link>
         </button>
         <span className="border  -skew-x-12 border-r-[1px] border-yellow-500 block"></span>
-        <button className="px-3 bg-black">
+        <button
+          className={`px-3 ${!pathname.includes("register") && "active-btn"}`}
+        >
           <Link href={"/user/login"}>Login</Link>
         </button>
       </section>

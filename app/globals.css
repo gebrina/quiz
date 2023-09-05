@@ -15,4 +15,8 @@
   .active-link {
     @apply hover:bg-opacity-25 transition-all bg-yellow-400 text-slate-900 px-3 rounded shadow-yellow-300;
   }
+
+  .active-btn {
+    @apply bg-slate-900 text-slate-300;
+  }
 }
