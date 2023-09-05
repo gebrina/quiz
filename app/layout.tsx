@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Cabin_Condensed } from "next/font/google";
+import Header from "./header";
 
 const condensed = Cabin_Condensed({ subsets: ["latin"], weight: "400" });
 
@@ -16,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={condensed.className}>{children}</body>
+      <body className={condensed.className}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
