@@ -16,7 +16,7 @@ const Page = () => {
     <section className="flex items-center justify-center h-[80vh]">
       <form
         onSubmit={handleSubmit}
-        className="text-slate-300 text-md flex flex-col gap-4"
+        className="text-slate-300 w-full sm:w-1/4 md:w-1/5 text-md flex flex-col gap-4"
       >
         <div className="flex flex-col gap-1">
           <label htmlFor="email">Email</label>
@@ -47,7 +47,7 @@ const Page = () => {
           )}
         </div>
         <button
-          className="bg-yellow-700 py-2 rounded hover:bg-slate-900"
+          className="bg-yellow-700 py-2 text-lg rounded hover:bg-slate-900"
           type="submit"
         >
           Login
