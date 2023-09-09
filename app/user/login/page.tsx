@@ -12,7 +12,37 @@ const Page = () => {
     validationSchema: loginValidationSchema,
     onSubmit: () => {},
   });
-  return <section></section>;
+  return (
+    <section>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            id="email"
+          />
+          {touched.email && errors.email && <small>{errors.email}</small>}
+        </div>
+
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="passoword"
+            value={values.password}
+            onChange={handleChange}
+          />
+          {touched.password && errors.password && (
+            <small>{errors.password}</small>
+          )}
+        </div>
+      </form>
+    </section>
+  );
 };
 
 export default Page;
