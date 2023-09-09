@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" type="image/x-icon" href="/logo.ico" />
-      <body className={condensed.className}>
+      <body className={`${condensed.className} bg-cover`}>
         <Header />
         {children}
       </body>
