@@ -6,7 +6,7 @@ import Header from "./header";
 const condensed = Cabin_Condensed({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "Quiz",
+  title: "Quiz +",
   description: "Quiz with app for creating managing quizzes",
 };
 
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="icon" type="image/x-icon" href="/logo.ico" />
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       <body className={`${condensed.className} bg-cover`}>
         <Header />
         {children}

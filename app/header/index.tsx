@@ -21,19 +21,19 @@ const Header = () => {
         </Link>
         <Link
           className={`hover:text-yellow-500 ${
-            pathname == "/quiz" && "active-link"
+            pathname == "/quiz/random" && "active-link"
           }`}
-          href={"/quiz"}
+          href={"/quiz/random"}
         >
-          Quiz
+          Random Quiz
         </Link>
         <Link
           className={`hover:text-yellow-500 ${
-            pathname == "/quiz-cateogy" && "active-link"
+            pathname == "/quiz-categories" && "active-link"
           }`}
-          href={"/quiz/1"}
+          href={"/quiz-categories"}
         >
-          Quiz Category
+          Quiz Categories
         </Link>
       </section>
       <section className="flex  border-2 rounded bg-yellow-900 group border-yellow-500 ">

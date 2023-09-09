@@ -13,7 +13,7 @@ const Page: FC = () => {
           </blockquote>
           <Link
             className="px-3  mt-4 block  w-max py-1 text-2xl rounded hover:text-yellow-500 hover:animate-pulse  bg-orange-500 bg-opacity-20 text-slate-300"
-            href={"/quiz"}
+            href={"/quiz-categories"}
           >
             Take Quiz
           </Link>
