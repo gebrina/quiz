@@ -13,23 +13,29 @@ const Page = () => {
     onSubmit: () => {},
   });
   return (
-    <section>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <section className="flex items-center justify-center h-[80vh]">
+      <form
+        onSubmit={handleSubmit}
+        className="text-slate-300 text-md flex flex-col gap-4"
+      >
+        <div className="flex flex-col gap-1">
           <label htmlFor="email">Email</label>
           <input
-            type="email"
+            className="  input-control"
             name="email"
             value={values.email}
             onChange={handleChange}
             id="email"
           />
-          {touched.email && errors.email && <small>{errors.email}</small>}
+          {touched.email && errors.email && (
+            <small className="text-red-500">{errors.email}</small>
+          )}
         </div>
 
-        <div>
+        <div className="flex flex-col gap-1">
           <label htmlFor="password">Password</label>
           <input
+            className="  input-control"
             type="password"
             id="password"
             name="passoword"
@@ -37,9 +43,15 @@ const Page = () => {
             onChange={handleChange}
           />
           {touched.password && errors.password && (
-            <small>{errors.password}</small>
+            <small className="text-red-500">{errors.password}</small>
           )}
         </div>
+        <button
+          className="bg-yellow-700 py-2 rounded hover:bg-slate-900"
+          type="submit"
+        >
+          Login
+        </button>
       </form>
     </section>
   );
