@@ -4,13 +4,13 @@
 
 @layer components {
   body {
-    @apply min-h-screen w-screen  bg-fixed  overflow-x-hidden bg-no-repeat bg-gradient-to-br;
+    @apply min-h-screen w-screen bg-fixed  overflow-x-hidden bg-no-repeat bg-gradient-to-br;
     background: linear-gradient(
         to top left,
         rgba(0, 0, 0, 0.7),
         rgba(0, 25, 56, 0.8)
       ),
-      url(/test.png);
+      url(/test.png) fixed;
   }
   .active-link {
     @apply hover:bg-opacity-25 transition-all bg-yellow-400 text-slate-900 px-3 rounded shadow-yellow-300;
