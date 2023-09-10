@@ -4,7 +4,7 @@ export const registerValidation = yup.object().shape({
   firstName: yup.string().required().min(3),
   lastName: yup.string().required().min(3),
   email: yup.string().required().email(),
-  passowrd: yup.string().required().min(5),
+  passowrd: yup.string().required(),
 });
 
 export const loginValidationSchema = yup.object().shape({
@@ -12,8 +12,5 @@ export const loginValidationSchema = yup.object().shape({
     .string()
     .email("Enter valid email address")
     .required("Email address is required"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(3, "Password must be morethan 3 chars"),
+  password: yup.string().required("Password is required"),
 });

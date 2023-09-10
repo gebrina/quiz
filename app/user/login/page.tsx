@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { loginValidationSchema } from "@/app/validation";
 import { LoginMutation } from "@/app/graphql";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { getLoggedInUser } from "@/app/lib";
 
 const Page = () => {
   const [authUser, { data, loading, error }] = useMutation(LoginMutation);
@@ -25,11 +27,19 @@ const Page = () => {
         ...values,
       },
     });
-    if (!error && !loading) {
-      router.push("/quiz-categories");
+
+    if (data) {
       localStorage.setItem("user", JSON.stringify(data));
     }
   };
+
+  useEffect(() => {
+    const loggedInUser = getLoggedInUser();
+    if (loggedInUser) {
+      router.push("/quiz-categories");
+    }
+  }, [router]);
+
   if (loading)
     return <p className="text-center text-3xl mt-12"> Submintting...</p>;
 
