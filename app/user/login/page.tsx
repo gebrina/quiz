@@ -1,17 +1,45 @@
 "use client";
-import React from "react";
+import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "@/app/validation";
+import { LoginMutation } from "@/app/graphql";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const [authUser, { data, loading, error }] = useMutation(LoginMutation);
+  const router = useRouter();
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: loginValidationSchema,
-    onSubmit: () => {},
+    onSubmit: () => {
+      handleLogin();
+    },
   });
+
+  const handleLogin = () => {
+    authUser({
+      variables: {
+        ...values,
+      },
+    });
+    if (!error && !loading) {
+      router.push("/quiz-categories");
+      localStorage.setItem("user", JSON.stringify(data));
+    }
+  };
+  if (loading)
+    return <p className="text-center text-3xl mt-12"> Submintting...</p>;
+
+  if (error)
+    return (
+      <p className="text-center text-red-500 text-3xl mt-12">
+        Something went wrong...
+      </p>
+    );
+
   return (
     <section className="flex items-center justify-center h-[80vh]">
       <form
@@ -38,7 +66,7 @@ const Page = () => {
             className="  input-control"
             type="password"
             id="password"
-            name="passoword"
+            name="password"
             value={values.password}
             onChange={handleChange}
           />
