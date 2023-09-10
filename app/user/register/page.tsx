@@ -30,7 +30,7 @@ const Register = () => {
             className="input-control"
           />
           {errors.firstName && touched.firstName && (
-            <small>{errors.firstName}</small>
+            <small className="text-red-600">{errors.firstName}</small>
           )}
         </div>
 
@@ -44,7 +44,7 @@ const Register = () => {
             className="input-control"
           />
           {errors.lastName && touched.lastName && (
-            <small>{errors.lastName}</small>
+            <small className="text-red-600">{errors.lastName}</small>
           )}
         </div>
 
@@ -57,7 +57,9 @@ const Register = () => {
             onChange={handleChange}
             className="input-control"
           />
-          {errors.email && touched.email && <small>{errors.email}</small>}
+          {errors.email && touched.email && (
+            <small className="text-red-600">{errors.email}</small>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -69,9 +71,11 @@ const Register = () => {
             onChange={handleChange}
             className="input-control"
           />
-          {errors.passowrd && touched.passowrd && <small>{errors.email}</small>}
+          {errors.passowrd && touched.passowrd && (
+            <small className="text-red-600">{errors.email}</small>
+          )}
         </div>
-        <button className="w-full bg-yellow-800 py-1 text-xl hover:bg-slate-900 transition-all hover:border-[1px] mt-4">
+        <button className="w-full bg-yellow-800 py-2 text-lg hover:bg-slate-900 transition-all hover:border-[1px] mt-4">
           Register
         </button>
       </form>
