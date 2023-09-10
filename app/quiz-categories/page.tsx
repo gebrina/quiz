@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const page = () => {
   return (
     <section className="container mx-auto py-5">
@@ -11,20 +13,32 @@ const page = () => {
         Select & take a Quiz
       </h1>
       <section className="text-center mt-12">
-        <ul className="flex flex-wrap justify-center items-center gap-5">
-          <li className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer animate-bounce bg-yellow-500 bg-opacity-5 my-4 ">
+        <div className="flex flex-wrap justify-center items-center gap-7">
+          <Link
+            href={"/"}
+            className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer bg-yellow-500 bg-opacity-5  "
+          >
             React
-          </li>
-          <li className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer animate-bounce bg-yellow-500 bg-opacity-5 my-4 ">
+          </Link>
+          <Link
+            href={"/"}
+            className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer bg-yellow-500 bg-opacity-5  "
+          >
             Angular
-          </li>
-          <li className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer animate-bounce bg-yellow-500 bg-opacity-5 my-4 ">
+          </Link>
+          <Link
+            href={"/"}
+            className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer bg-yellow-500 bg-opacity-5  "
+          >
             Node JS
-          </li>
-          <li className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer animate-bounce bg-yellow-500 bg-opacity-5 my-4 ">
+          </Link>
+          <Link
+            href={"/"}
+            className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer bg-yellow-500 bg-opacity-5  "
+          >
             Express JS
-          </li>
-        </ul>
+          </Link>
+        </div>
       </section>
     </section>
   );
