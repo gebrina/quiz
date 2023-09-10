@@ -4,7 +4,7 @@
 
 @layer components {
   body {
-    @apply min-h-screen w-screen  bg-fixed  bg-no-repeat bg-gradient-to-br;
+    @apply min-h-screen w-screen  bg-fixed  overflow-x-hidden bg-no-repeat bg-gradient-to-br;
     background: linear-gradient(
         to top left,
         rgba(0, 0, 0, 0.7),
