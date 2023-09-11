@@ -1,12 +1,18 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-const QuizContext = createContext(null);
+type QuizContextValueTypes = {
+  loggedInUser: string;
+  setLoggedInUser: (data: any) => void;
+};
+const QuizContext = createContext<QuizContextValueTypes | undefined>(undefined);
 
 const QuizContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState("");
   return (
-    <QuizContext.Provider value={loggedInUser}>{children}</QuizContext.Provider>
+    <QuizContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+      {children}
+    </QuizContext.Provider>
   );
 };
 
