@@ -12,7 +12,9 @@ export const getLoggedInUser = () => {
 export const setLoggedInUser = (user: any) => {
   if (typeof window !== "undefined") {
     const loggedInUser = JSON.stringify(user);
-    localStorage.setItem("user", loggedInUser);
+    if (loggedInUser) {
+      localStorage.setItem("user", loggedInUser);
+    }
   }
 };
 

@@ -15,21 +15,20 @@ const QuizContext = createContext<QuizContextValueTypes>({
 });
 
 const QuizContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [loggedInUser, setLoggedInUser] = useState<any>();
+  const [loggedInUser, setLoggedinUser] = useState<any>();
 
   const handleLogout = () => {
-    setLoggedInUser(null);
+    setLoggedinUser(null);
     handleUserLogout();
   };
 
   const handleLogin = (userInfo: any) => {
-    setLoggedInUser(userInfo);
-    setLoggedInUser(userInfo);
+    setLoggedinUser(userInfo.authUser);
   };
 
   useEffect(() => {
     const user = getLoggedInUser();
-    user && setLoggedInUser(user);
+    user && setLoggedinUser(user);
   }, []);
 
   return (

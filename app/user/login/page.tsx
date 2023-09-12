@@ -6,9 +6,11 @@ import { LoginMutation } from "@/app/graphql";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { getLoggedInUser, setLoggedInUser } from "@/app/lib";
+import { useQuizContext } from "@/app/context/quiz";
 
 const Page = () => {
   const [authUser, { data, loading, error }] = useMutation(LoginMutation);
+  const { handleLogin: handleUserLogin } = useQuizContext();
   const router = useRouter();
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
@@ -30,15 +32,15 @@ const Page = () => {
   };
 
   useEffect(() => {
-    setLoggedInUser(data);
-  }, [data]);
-
-  useEffect(() => {
-    const loggedInUser = getLoggedInUser();
-    if (loggedInUser) {
+    if (data) {
+      handleUserLogin(data);
+      setLoggedInUser(data);
+    }
+    const user = getLoggedInUser() || data;
+    if (user) {
       router.push("/dashboard/quiz");
     }
-  }, [router]);
+  }, [data, loading]);
 
   if (loading)
     return <p className="text-center text-3xl mt-12"> Submintting...</p>;

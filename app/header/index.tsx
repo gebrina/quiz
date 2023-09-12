@@ -8,7 +8,6 @@ import { useQuizContext } from "../context/quiz";
 const Header = () => {
   const pathname = usePathname();
   const { loggedInUser, handleLogout } = useQuizContext();
-  console.log(loggedInUser);
   return (
     <header className="h-16 bg-black bg-opacity-25 text-slate-300 flex justify-between items-center px-24 ">
       <Image src={"/logo.ico"} width={40} height={40} alt="Quiz logo" />
