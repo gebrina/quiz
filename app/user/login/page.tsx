@@ -36,7 +36,7 @@ const Page = () => {
   useEffect(() => {
     const loggedInUser = getLoggedInUser();
     if (loggedInUser) {
-      router.push("/quiz-categories");
+      router.push("/dashboard/quiz");
     }
   }, [router]);
 
