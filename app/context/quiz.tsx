@@ -29,7 +29,7 @@ const QuizContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const user = getLoggedInUser();
-    setLoggedInUser(user);
+    user && setLoggedInUser(user);
   }, []);
 
   return (

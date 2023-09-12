@@ -49,7 +49,7 @@ const Header = () => {
           className={`px-3 ${!pathname.includes("register") && "active-btn"}`}
         >
           {loggedInUser?.access_token ? (
-            <Link onClick={handleLogout} href={"/user/login"}>
+            <Link onClick={() => handleLogout(null)} href={"/user/login"}>
               Logout
             </Link>
           ) : (

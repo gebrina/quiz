@@ -5,7 +5,7 @@ import { loginValidationSchema } from "@/app/validation";
 import { LoginMutation } from "@/app/graphql";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { getLoggedInUser } from "@/app/lib";
+import { getLoggedInUser, setLoggedInUser } from "@/app/lib";
 
 const Page = () => {
   const [authUser, { data, loading, error }] = useMutation(LoginMutation);
@@ -27,11 +27,11 @@ const Page = () => {
         ...values,
       },
     });
-
-    if (data) {
-      localStorage.setItem("user", JSON.stringify(data));
-    }
   };
+
+  useEffect(() => {
+    setLoggedInUser(data);
+  }, [data]);
 
   useEffect(() => {
     const loggedInUser = getLoggedInUser();
