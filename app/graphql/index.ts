@@ -12,3 +12,27 @@ export const LoginMutation = gql`
     }
   }
 `;
+
+export const addQuizMutation = gql`
+  mutation (
+    $user: ID!
+    $category: ID!
+    $question: String!
+    $correctAnswer: String!
+    $answers: [ChoiceInput!]!
+  ) {
+    createQuiz(
+      quizInput: {
+        user: { id: $user }
+        category: { id: $category }
+        qusetion: $question
+        correctAnswer: $correctAnswer
+        answers: $answers
+      }
+    ) {
+      id
+      qusetion
+      correctAnswer
+    }
+  }
+`;
