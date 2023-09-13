@@ -3,10 +3,19 @@
 import { getAllQuizzesQuery } from "@/app/graphql";
 import { useQuery } from "@apollo/client";
 import { useQuizContext } from "@/app/context/quiz";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { getLoggedInUser } from "@/app/lib";
 
 const page = () => {
-  const {} = useQuizContext();
+  const loggedInUser: any = getLoggedInUser();
+  const router = useRouter();
   const { data, loading, error } = useQuery(getAllQuizzesQuery);
+  useEffect(() => {
+    if (!loggedInUser?.access_token) {
+      router.push("/user/login");
+    }
+  }, []);
 
   if (loading)
     return (
@@ -16,9 +25,10 @@ const page = () => {
   if (error)
     return (
       <h1 className="text-3xl text-red-500 text-center my-10">
-        Error happened: {error.message}
+        No Credentials...: {error.message}
       </h1>
     );
+
   return (
     <section
       className="container mx-auto shadow-md

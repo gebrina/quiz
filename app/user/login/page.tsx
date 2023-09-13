@@ -38,14 +38,13 @@ const Page = () => {
     }
     const user = getLoggedInUser() || data;
     if (user) {
-      router.push("/dashboard/quiz");
+      location.href = location.origin + "/dashboard/quiz";
     }
   }, [data, loading]);
 
   if (loading)
     return (
       <h1 className="text-3xl text-slate-300 my-10 text-center">
-        {" "}
         Submitting...{" "}
       </h1>
     );
