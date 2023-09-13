@@ -36,6 +36,16 @@ const Header = () => {
         >
           Quiz Categories
         </Link>
+        {loggedInUser?.access_token && (
+          <Link
+            className={`hover:text-yellow-500 ${
+              pathname == "/dashboard/quiz" && "active-link"
+            }`}
+            href={"/dashboard/quiz"}
+          >
+            Dashboard
+          </Link>
+        )}
       </section>
       <section className="flex  border-2 rounded bg-yellow-900 group border-yellow-500 ">
         <button
