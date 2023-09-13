@@ -43,13 +43,18 @@ const Page = () => {
   }, [data, loading]);
 
   if (loading)
-    return <p className="text-center text-3xl mt-12"> Submintting...</p>;
+    return (
+      <h1 className="text-3xl text-slate-300 my-10 text-center">
+        {" "}
+        Submitting...{" "}
+      </h1>
+    );
 
   if (error)
     return (
-      <p className="text-center text-red-500 text-3xl mt-12">
-        Something went wrong...
-      </p>
+      <h1 className="text-3xl text-red-500 text-center my-10">
+        Error happened: {error.message}
+      </h1>
     );
 
   return (

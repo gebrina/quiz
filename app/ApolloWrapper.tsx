@@ -8,10 +8,15 @@ import {
   NextSSRApolloClient,
   SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
+import { getLoggedInUser } from "./lib";
 
 function makeClient() {
+  const currentUser: any = getLoggedInUser();
   const httpLink = new HttpLink({
     uri: "http://localhost:4000/graphql",
+    headers: {
+      Authorization: `Bearer ${currentUser?.access_token}`,
+    },
     fetchOptions: { cache: "no-store" },
   });
 
