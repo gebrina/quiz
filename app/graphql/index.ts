@@ -36,3 +36,21 @@ export const addQuizMutation = gql`
     }
   }
 `;
+
+export const getAllQuizzesQuery = gql`
+  query getAllQuizzes {
+    findAllQuiz {
+      qusetion
+      correctAnswer
+      user {
+        firstName
+        lastName
+        id
+      }
+      answers {
+        answer
+        id
+      }
+    }
+  }
+`;
