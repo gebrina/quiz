@@ -3,11 +3,15 @@
 import { getAllQuizzesQuery } from "@/app/graphql";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getLoggedInUser } from "@/app/lib";
+import QuizForm from "./QuizForm";
 
 const DashboardPage = () => {
   const loggedInUser: any = getLoggedInUser();
+  const [userid, setUserId] = useState<string>("");
+  const [categoryId, setCategoryId] = useState<string>("");
+  const [action, setAction] = useState<string>("new");
   const router = useRouter();
   const { data, loading, error } = useQuery(getAllQuizzesQuery);
 
@@ -36,6 +40,7 @@ const DashboardPage = () => {
       text-xl
   "
     >
+      <QuizForm user={userid} category={categoryId} action={action} />
       <section>
         <table className="w-full border-l-2 my-5">
           <caption className="text-3xl py-2 mb-2 underline decoration-yellow-500">
