@@ -7,6 +7,7 @@ export const LoginMutation = gql`
         firstName
         lastName
         email
+        id
       }
       access_token
     }
@@ -44,6 +45,7 @@ export const getAllQuizzesQuery = gql`
       correctAnswer
       category {
         name
+        id
       }
       user {
         firstName

@@ -38,7 +38,7 @@ const DashboardPage = () => {
     >
       <section>
         <table className="w-full border-l-2 my-5">
-          <caption className="text-3xl py-2 underline decoration-yellow-500">
+          <caption className="text-3xl py-2 mb-2 underline decoration-yellow-500">
             Quizzes
           </caption>
           <thead className="bg-slate-500  bg-opacity-30">
