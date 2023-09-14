@@ -42,6 +42,9 @@ export const getAllQuizzesQuery = gql`
     findAllQuiz {
       qusetion
       correctAnswer
+      category {
+        name
+      }
       user {
         firstName
         lastName

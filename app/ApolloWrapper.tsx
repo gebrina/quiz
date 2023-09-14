@@ -14,7 +14,7 @@ export function ApolloWrapper({ children }: React.PropsWithChildren) {
   function makeClient() {
     const currentUser: any = getLoggedInUser();
     const httpLink = new HttpLink({
-      uri: "http://localhost:4000/graphql",
+      uri: process.env.NEXT_PUBLIC_GQL_API,
       headers: {
         Authorization: `Bearer ${currentUser?.access_token}`,
       },

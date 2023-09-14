@@ -2,20 +2,20 @@
 
 import { getAllQuizzesQuery } from "@/app/graphql";
 import { useQuery } from "@apollo/client";
-import { useQuizContext } from "@/app/context/quiz";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { getLoggedInUser } from "@/app/lib";
 
-const page = () => {
+const DashboardPage = () => {
   const loggedInUser: any = getLoggedInUser();
   const router = useRouter();
   const { data, loading, error } = useQuery(getAllQuizzesQuery);
+
   useEffect(() => {
     if (!loggedInUser?.access_token) {
       router.push("/user/login");
     }
-  }, []);
+  }, [loggedInUser?.access_token, router]);
 
   if (loading)
     return (
@@ -42,18 +42,38 @@ const page = () => {
             Quizzes
           </caption>
           <thead className="bg-slate-500 bg-opacity-30">
-            <tr className="flex justify-evenly w-full py-2">
-              <th>ID</th>
+            <tr>
               <th>Question</th>
               <th>User</th>
               <th>Category</th>
-              <th>Action</th>
+              <th colSpan={2}>Action</th>
             </tr>
           </thead>
+          <tbody>
+            {data.findAllQuiz.map((quiz: any) => (
+              <tr key={quiz.qusetion} className="text-center bg-black h-12">
+                <td title={quiz.qusetion}>
+                  {quiz.qusetion.substring(0, 10)} ...
+                </td>
+                <td>{quiz?.user?.firstName}</td>
+                <td>{quiz.category.name}</td>
+                <td>
+                  <button className="text-md shadow-sm hover:bg-opacity-50 bg-red-500 bg-opacity-90 px-2 rounded-sm cursor-pointer">
+                    Deleted
+                  </button>
+                </td>
+                <td>
+                  <button className="text-md shadow-sm hover:bg-opacity-50 bg-green-500 bg-opacity-30 px-2 rounded-sm cursor-pointer">
+                    Update
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </section>
     </section>
   );
 };
 
-export default page;
+export default DashboardPage;
