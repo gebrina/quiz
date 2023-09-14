@@ -37,12 +37,12 @@ const DashboardPage = () => {
   "
     >
       <section>
-        <table className="w-full my-5">
+        <table className="w-full border-l-2 my-5">
           <caption className="text-3xl py-2 underline decoration-yellow-500">
             Quizzes
           </caption>
-          <thead className="bg-slate-500 bg-opacity-30">
-            <tr>
+          <thead className="bg-slate-500  bg-opacity-30">
+            <tr className="h-14">
               <th>Question</th>
               <th>User</th>
               <th>Category</th>
@@ -51,7 +51,10 @@ const DashboardPage = () => {
           </thead>
           <tbody>
             {data.findAllQuiz.map((quiz: any) => (
-              <tr key={quiz.qusetion} className="text-center bg-black h-12">
+              <tr
+                key={quiz.qusetion}
+                className="text-center hover:bg-black h-12"
+              >
                 <td title={quiz.qusetion}>
                   {quiz.qusetion.substring(0, 10)} ...
                 </td>
@@ -59,7 +62,7 @@ const DashboardPage = () => {
                 <td>{quiz.category.name}</td>
                 <td>
                   <button className="text-md shadow-sm hover:bg-opacity-50 bg-red-500 bg-opacity-90 px-2 rounded-sm cursor-pointer">
-                    Deleted
+                    Delete
                   </button>
                 </td>
                 <td>
