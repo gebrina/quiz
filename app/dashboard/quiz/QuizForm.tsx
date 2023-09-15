@@ -97,20 +97,21 @@ const QuizForm: FC<QuizFormProps> = ({ category, user, action }) => {
             </small>{" "}
           </p>
           <button
+            type="button"
             onClick={handleAddAnswers}
             className="bg-yellow-900 rounded-sm 
             shadow shadow-indigo-200 
              hover:shadow-none transition-all p-1 px-3"
           >
-            + Add
+            + Add choice
           </button>
         </div>
         {answers?.map((answer, i) => (
           <div key={i}>
-            <label htmlFor={`chioce${i}`}>Choice {i + 1}</label>
+            <label htmlFor={`choice${i}`}>Choice {i + 1}</label>
             <input
               id={`choice${i}`}
-              value={answers[i].answer}
+              value={answer.answer}
               onChange={(e) => handleUpdateAnswers(e.target.value, i)}
               className="input-control w-full"
             />
