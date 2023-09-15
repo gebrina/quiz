@@ -3,17 +3,17 @@ import { addQuizMutation } from "@/app/graphql";
 import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
 import { quizValidation } from "@/app/validation";
+import { toast } from "react-toastify";
 
 type QuizFormProps = {
   user: string;
-  category: string;
   action: string;
 };
 type Answer = {
   answer: string;
 };
 
-const QuizForm: FC<QuizFormProps> = ({ category, user, action }) => {
+const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
   const [cerateQuiz, { data, error, loading }] = useMutation(addQuizMutation);
   const [answers, setAnswers] = useState<Answer[]>([]);
 
@@ -25,16 +25,24 @@ const QuizForm: FC<QuizFormProps> = ({ category, user, action }) => {
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: initialQuizValues,
     validationSchema: quizValidation,
-    onSubmit: () => {},
+    onSubmit: () => handleCreateQuiz(),
   });
 
   const handleCreateQuiz = () => {
     cerateQuiz({
       variables: {
-        qusetion: values.question,
+        user,
+        answers,
+        question: values.question,
         correctAnswer: values.correctAnswer,
       },
-    });
+    })
+      .then((res) => {
+        toast.success("Quiz creacted successfully");
+      })
+      .catch((err) => {
+        toast.error("Unable to creact quiz try again!");
+      });
   };
 
   const handleAddAnswers = () => {
