@@ -14,3 +14,8 @@ export const loginValidationSchema = yup.object().shape({
     .required("Email address is required"),
   password: yup.string().required("Password is required"),
 });
+
+export const quizValidation = yup.object().shape({
+  question: yup.string().required("Question is required!"),
+  correctAnswer: yup.string().required("Correct Answer is required!"),
+});
