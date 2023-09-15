@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { addQuizMutation } from "@/app/graphql";
-import { useMutation } from "@apollo/client";
+import { addQuizMutation, getQuizCategoriesQuery } from "@/app/graphql";
+import { useMutation, useQuery } from "@apollo/client";
 import { useFormik } from "formik";
 import { quizValidation } from "@/app/validation";
 import { toast } from "react-toastify";
@@ -15,6 +15,8 @@ type Answer = {
 
 const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
   const [cerateQuiz, { data, error, loading }] = useMutation(addQuizMutation);
+  const { data: categories } = useQuery(getQuizCategoriesQuery);
+
   const [answers, setAnswers] = useState<Answer[]>([]);
 
   const initialQuizValues = {
@@ -61,7 +63,6 @@ const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
     return (
       <h1 className="text-center text-3xl text-red-500">{error.message}</h1>
     );
-
   return (
     <section className="flex flex-col gap-2 justify-center items-center my-10">
       <h1 className="text-3xl font-bold opacity-90">
@@ -71,6 +72,14 @@ const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
         onSubmit={handleSubmit}
         className="text-slate-300 w-full sm:w-1/4 md:w-2/5 text-md flex flex-col gap-4"
       >
+        <select className="bg-transparent">
+          Category
+          {categories.findAllQuizCategory.map((category: any) => (
+            <option className="bg-transparent" key={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
         <div className="flex flex-col gap-1">
           <label htmlFor="question">Question</label>
           <input
