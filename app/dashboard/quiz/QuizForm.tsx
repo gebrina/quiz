@@ -9,9 +9,13 @@ type QuizFormProps = {
   category: string;
   action: string;
 };
+type Answer = {
+  answer: string;
+};
+
 const QuizForm: FC<QuizFormProps> = ({ category, user, action }) => {
   const [cerateQuiz, { data, error, loading }] = useMutation(addQuizMutation);
-  const [answers, setAnswers] = useState<Array<string>>([""]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
 
   const initialQuizValues = {
     question: "",
@@ -31,6 +35,17 @@ const QuizForm: FC<QuizFormProps> = ({ category, user, action }) => {
         correctAnswer: values.correctAnswer,
       },
     });
+  };
+
+  const handleAddAnswers = () => {
+    setAnswers((prevAnswers) => [...prevAnswers, { answer: "" }]);
+  };
+
+  const handleUpdateAnswers = (value: string, index: number) => {
+    const prevAnsers = answers[index];
+    prevAnsers.answer = value;
+    const filterdAnswers = answers.filter((answer, i) => i !== index);
+    setAnswers([...filterdAnswers, prevAnsers]);
   };
 
   if (loading) return <h1 className="text-center text-3xl">Submitting...</h1>;
@@ -77,14 +92,30 @@ const QuizForm: FC<QuizFormProps> = ({ category, user, action }) => {
         <div className="flex justify-between ">
           <p>
             Choices{" "}
-            <small className="bg-black bg-opacity-30 px-2">
+            <small className="bg-black bg-opacity-30 px-2 ">
               Click the add button and eneter unlimeted chioces{" "}
             </small>{" "}
           </p>
-          <button className="bg-yellow-900 rounded-sm shadow shadow-indigo-200 hover:shadow-none transition-all p-1 px-3">
+          <button
+            onClick={handleAddAnswers}
+            className="bg-yellow-900 rounded-sm 
+            shadow shadow-indigo-200 
+             hover:shadow-none transition-all p-1 px-3"
+          >
             + Add
           </button>
         </div>
+        {answers?.map((answer, i) => (
+          <div key={i}>
+            <label htmlFor={`chioce${i}`}>Choice {i + 1}</label>
+            <input
+              id={`choice${i}`}
+              value={answers[i].answer}
+              onChange={(e) => handleUpdateAnswers(e.target.value, i)}
+              className="input-control w-full"
+            />
+          </div>
+        ))}
         <button
           className="bg-green-700 py-2 text-lg rounded hover:bg-slate-900"
           type="submit"
