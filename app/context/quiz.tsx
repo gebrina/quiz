@@ -5,7 +5,7 @@ import { getLoggedInUser, handleUserLogout } from "../lib";
 
 type QuizContextValueTypes = {
   loggedInUser: any;
-  handleLogout: (data: any) => void;
+  handleLogout: () => void;
   handleLogin: (data: any) => void;
 };
 const QuizContext = createContext<QuizContextValueTypes>({

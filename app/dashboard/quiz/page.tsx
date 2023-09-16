@@ -27,7 +27,7 @@ const DashboardPage = () => {
   if (error)
     return (
       <h1 className="text-3xl text-red-500 text-center my-10">
-        No Credentials...: {error.message}
+        No Credentials... {error.message}
       </h1>
     );
 

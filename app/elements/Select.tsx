@@ -35,7 +35,7 @@ const Select: FC<SelectProps> = ({ options, setValue }) => {
           onClick={() => handleOpenState(!open)}
           className="flex justify-between px-3  items-center"
         >
-          <p>{selectedOption ? selectedOption : "Select Quiz Category"}</p>{" "}
+          <p>{selectedOption ? selectedOption : "Select Quiz Category"}</p>
           <span className="text-2xl">{open ? "-" : "+"}</span>
         </li>
         {options?.map((option) => (

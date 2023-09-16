@@ -106,6 +106,19 @@ const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
             <small className="text-red-500">{errors.correctAnswer}</small>
           )}
         </div>
+
+        {answers?.map((answer, i) => (
+          <div key={i}>
+            <label htmlFor={`choice${i}`}>Choice {i + 1}</label>
+            <input
+              id={`choice${i}`}
+              value={answer.answer}
+              onChange={(e) => handleUpdateAnswers(e.target.value, i)}
+              className="input-control w-full"
+            />
+          </div>
+        ))}
+
         <div className="flex justify-between ">
           <p>
             Choices{" "}
@@ -123,17 +136,6 @@ const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
             + Add choice
           </button>
         </div>
-        {answers?.map((answer, i) => (
-          <div key={i}>
-            <label htmlFor={`choice${i}`}>Choice {i + 1}</label>
-            <input
-              id={`choice${i}`}
-              value={answer.answer}
-              onChange={(e) => handleUpdateAnswers(e.target.value, i)}
-              className="input-control w-full"
-            />
-          </div>
-        ))}
         <button
           className="bg-green-700 py-2 text-lg rounded hover:bg-slate-900"
           type="submit"
