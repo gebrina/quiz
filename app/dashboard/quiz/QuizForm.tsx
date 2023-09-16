@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useFormik } from "formik";
 import { quizValidation } from "@/app/validation";
 import { toast } from "react-toastify";
+import Select from "@/app/elements/Select";
 
 type QuizFormProps = {
   user: string;
@@ -17,6 +18,7 @@ const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
   const [cerateQuiz, { data, error, loading }] = useMutation(addQuizMutation);
   const { data: categories } = useQuery(getQuizCategoriesQuery);
 
+  const [category, setCategory] = useState<string>("");
   const [answers, setAnswers] = useState<Answer[]>([]);
 
   const initialQuizValues = {
@@ -34,6 +36,7 @@ const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
     cerateQuiz({
       variables: {
         user,
+        category,
         answers,
         question: values.question,
         correctAnswer: values.correctAnswer,
@@ -72,14 +75,11 @@ const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
         onSubmit={handleSubmit}
         className="text-slate-300 w-full sm:w-1/4 md:w-2/5 text-md flex flex-col gap-4"
       >
-        <select className="bg-transparent">
-          Category
-          {categories.findAllQuizCategory.map((category: any) => (
-            <option className="bg-transparent" key={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <Select
+          options={categories?.findAllQuizCategory}
+          setValue={setCategory}
+        />
+
         <div className="flex flex-col gap-1">
           <label htmlFor="question">Question</label>
           <input
