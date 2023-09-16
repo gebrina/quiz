@@ -9,7 +9,7 @@ import QuizForm from "./QuizForm";
 
 const DashboardPage = () => {
   const loggedInUser: any = getLoggedInUser();
-  const [action, setAction] = useState<string>("new");
+  const [action, setAction] = useState<string>("");
   const router = useRouter();
   const { data, loading, error } = useQuery(getAllQuizzesQuery);
 
@@ -38,11 +38,24 @@ const DashboardPage = () => {
       text-xl
   "
     >
-      <QuizForm user={loggedInUser.user.id} action={action} />
+      {action && <QuizForm user={loggedInUser.user.id} action={action} />}
       <section>
         <table className="w-full border-l-2 my-5">
-          <caption className="text-3xl py-2 mb-2 underline decoration-yellow-500">
+          <caption className="text-3xl px-12 py-2 mb-2 underline decoration-yellow-500">
             Quizzes
+            {!action && (
+              <button
+                onClick={() => setAction("new")}
+                className="px-3 text-[22px] border-[1px]
+                bg-green-900
+                hover:bg-opacity-80
+                rounded
+                transition-all
+                float-right"
+              >
+                Add quiz
+              </button>
+            )}
           </caption>
           <thead className="bg-slate-500  bg-opacity-30">
             <tr className="h-14">

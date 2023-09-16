@@ -23,7 +23,7 @@ const Select: FC<SelectProps> = ({ options, setValue }) => {
   const handleOpenState = (open: boolean) => setOpen(open);
 
   return (
-    <section className="relative my-10">
+    <section className="relative mb-10">
       <ul
         ref={selectRef}
         className={`absolute border-[1px] cursor-pointer  
