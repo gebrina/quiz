@@ -1,12 +1,18 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
+import { useOutSideClick } from "../hooks/useOutsideClick";
 
 type SelectProps = {
   options: any[];
   setValue: (val: string) => void;
 };
+
 const Select: FC<SelectProps> = ({ options, setValue }) => {
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>();
+
+  const selectRef = useRef<HTMLUListElement>(null);
+
+  const { isOutsideClick } = useOutSideClick(selectRef.current as HTMLElement);
 
   const handleChange = (option: any) => {
     setValue(option.value);
@@ -19,9 +25,10 @@ const Select: FC<SelectProps> = ({ options, setValue }) => {
   return (
     <section className="relative my-10">
       <ul
+        ref={selectRef}
         className={`absolute border-[1px] cursor-pointer  
       input-control w-full py-1 bg-opacity-100 hover:bg-opacity-100 bg-slate-700  px-0 h-10 overflow-hidden
-      ${open ? "h-auto" : "h-10"}
+      ${open && !isOutsideClick ? "h-auto" : "h-10"}
       `}
       >
         <li
@@ -34,7 +41,7 @@ const Select: FC<SelectProps> = ({ options, setValue }) => {
         {options?.map((option) => (
           <li
             className="hover:bg-black px-3 py-2"
-            key={option}
+            key={option.id}
             onClick={() =>
               handleChange({ value: option.id, label: option.name })
             }
