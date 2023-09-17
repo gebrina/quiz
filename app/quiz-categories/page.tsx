@@ -34,8 +34,10 @@ const page = () => {
           {data.findAllQuizCategory.map((category: any) => (
             <Link
               key={category.id}
-              href={`/quiz/${category.name}`}
-              className="h-24 w-full md:w-1/3 text-slate-300 text-3xl flex items-center justify-center hover:bg-opacity-10 hover:cursor-pointer bg-yellow-500 bg-opacity-5  "
+              href={`/quiz-categories/${category.name}/${category.id}`}
+              className="h-24 w-full md:w-1/3 text-slate-300 text-3xl 
+                          flex items-center justify-center hover:bg-opacity-10 
+                          hover:cursor-pointer bg-yellow-500 bg-opacity-5"
             >
               {category.name}
             </Link>

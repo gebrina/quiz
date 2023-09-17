@@ -68,3 +68,21 @@ export const getAllQuizzesQuery = gql`
     }
   }
 `;
+
+export const getQuizCategoryById = gql`
+  query findoneCategory($categoryId: String!) {
+    findOneQuizCategory(categoryId: $categoryId) {
+      name
+      id
+      quizzes {
+        id
+        qusetion
+        correctAnswer
+        answers {
+          id
+          answer
+        }
+      }
+    }
+  }
+`;
