@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 const Tab = ({ setActivePage }: { setActivePage: (page: string) => void }) => {
-  const [activeTab, setActiveTab] = useState<string>("quizz");
+  const [activeTab, setActiveTab] = useState<string>("profile");
 
   useEffect(() => {
     setActivePage(activeTab);
@@ -15,12 +15,12 @@ const Tab = ({ setActivePage }: { setActivePage: (page: string) => void }) => {
     justify-center  bg-yellow-950 bg-opacity-25 w-max mb-5 mt-10 text-xl text-slate-300"
     >
       <button
-        onClick={() => setActiveTab("user")}
+        onClick={() => setActiveTab("profile")}
         className={`${
-          activeTab.includes("user") && "bg-black"
+          activeTab.includes("profile") && "bg-black"
         } h-full border-l-2 px-6 hover:bg-black  transition-all`}
       >
-        Users
+        Profile
       </button>
       <button
         onClick={() => setActiveTab("quizz")}
