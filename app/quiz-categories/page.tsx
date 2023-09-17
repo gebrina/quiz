@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { getQuizCategoriesQuery } from "../graphql";
 
-const page = () => {
+const QuizCateogry = () => {
   const { data, error, loading } = useQuery(getQuizCategoriesQuery);
 
   if (loading)
@@ -48,4 +48,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default QuizCateogry;
