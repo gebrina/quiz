@@ -39,7 +39,7 @@ const Header = () => {
         {loggedInUser?.access_token && (
           <Link
             className={`hover:text-yellow-500 ${
-              pathname == "/dashboard/quiz" && "active-link"
+              pathname == "/dashboard" && "active-link"
             }`}
             href={"/dashboard/quiz"}
           >
@@ -58,7 +58,7 @@ const Header = () => {
           className={`px-3 ${!pathname.includes("register") && "active-btn"}`}
         >
           {loggedInUser?.access_token ? (
-            <Link onClick={() => handleLogout(null)} href={"/user/login"}>
+            <Link onClick={() => handleLogout()} href={"/user/login"}>
               Logout
             </Link>
           ) : (

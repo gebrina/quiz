@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { getLoggedInUser } from "@/app/lib";
 import QuizForm from "./QuizForm";
 
-const DashboardPage = () => {
+const Quiz = () => {
   const loggedInUser: any = getLoggedInUser();
   const [action, setAction] = useState<string>("");
   const router = useRouter();
@@ -98,4 +98,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default Quiz;

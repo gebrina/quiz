@@ -38,7 +38,7 @@ const Page = () => {
     }
     const user = getLoggedInUser() || data;
     if (user) {
-      location.href = location.origin + "/dashboard/quiz";
+      location.href = location.origin + "/dashboard";
     }
   }, [data, loading]);
 
