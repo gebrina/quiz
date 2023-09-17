@@ -9,7 +9,7 @@ const Quiz = () => {
   const { loading, error, data } = useQuery(getQuizCategoryById, {
     variables: { categoryId: id },
   });
-  console.log(data);
+
   if (loading)
     return <h1 className="text-center my-10 text-3xl">Loading...</h1>;
   if (error)
