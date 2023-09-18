@@ -94,6 +94,32 @@ export const getUserById = gql`
       firstName
       lastName
       email
+      password
+    }
+  }
+`;
+
+export const updateUserMutation = gql`
+  mutation (
+    $userId: ID!
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String
+  ) {
+    updateUser(
+      user: {
+        id: $userId
+        firstName: $firstName
+        lastName: $lastName
+        email: $email
+        password: $password
+      }
+    ) {
+      id
+      firstName
+      lastName
+      email
     }
   }
 `;
