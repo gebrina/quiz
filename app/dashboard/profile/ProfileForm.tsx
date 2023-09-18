@@ -1,30 +1,22 @@
 "use client";
 
 import { useQuizContext } from "@/app/context/quiz";
-import { getUserById } from "@/app/graphql";
+import { getUserById, updateUserMutation } from "@/app/graphql";
 import { registerValidation } from "@/app/validation";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { useFormik } from "formik";
 import { FC, useEffect } from "react";
 
-export type User = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
-
-type ProfileProps = {
-  user: User;
-};
-
-const ProfileForm: FC<ProfileProps> = ({ user }) => {
+const ProfileForm: FC = () => {
   const { loggedInUser } = useQuizContext();
   const userId = loggedInUser?.user?.id;
   const { data, loading, error } = useQuery(getUserById, {
     variables: { userId },
   });
+  const [
+    updateUser,
+    { data: user, loading: upadateLoading, error: updateError },
+  ] = useMutation(updateUserMutation);
 
   const initialValues = {
     firstName: "",
@@ -44,25 +36,37 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
   } = useFormik({
     initialValues,
     validationSchema: registerValidation,
-    onSubmit: () => {},
+    onSubmit: () => handleUpdateUser(),
   });
-
+  console.log(data);
   useEffect(() => {
-    setFieldValue("firstName", data?.findOneUser?.firstName);
-    setFieldValue("lastName", data?.findOneUser.lastName);
-    setFieldValue("email", data?.findOneUser?.email);
+    setFieldValue("firstName", data?.findOneUser?.firstName ?? "");
+    setFieldValue("lastName", data?.findOneUser.lastName ?? "");
+    setFieldValue("email", data?.findOneUser?.email ?? "");
+    setFieldValue("password", data?.findOneUser?.password ?? "");
   }, [data]);
 
-  if (loading)
+  if (loading || upadateLoading)
     return (
-      <h1 className="text-3xl text-center my-10 text-slate-300">
-        Loading user info...
+      <h1 className="text-3xl text-center my-10 text-slate-300">Loading...</h1>
+    );
+
+  if (error || updateError)
+    return (
+      <h1 className="text-3xl text-red-500 text-center my-10">
+        {error?.message || updateError?.message}
       </h1>
     );
 
-  if (error)
-    return <h1 className="text-3xl text-red-500 text-center my-10"></h1>;
-
+  console.log(updateError, upadateLoading, user);
+  const handleUpdateUser = () => {
+    updateUser({
+      variables: {
+        userId,
+        ...values,
+      },
+    });
+  };
   return (
     <section className="w-full mx-auto text-lg text-slate-300">
       <h1 className="text-center text-3xl my-2">Upadte Your Profile</h1>
@@ -117,6 +121,7 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
           <input
             className="input-control"
             name="password"
+            type="passowrd"
             id="password"
             onChange={handleChange}
             value={values.password}
@@ -127,6 +132,7 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
         </div>
         <div className="w-full mt-4 flex items-center justify-center">
           <button
+            type="submit"
             className="w-full  px-6 bg-opacity-25 
         border-[1px] bg-green-600 p-1 
           hover:bg-opacity-50

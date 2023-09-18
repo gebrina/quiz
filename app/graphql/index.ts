@@ -100,7 +100,7 @@ export const getUserById = gql`
 `;
 
 export const updateUserMutation = gql`
-  mutation (
+  mutation updateUser(
     $userId: ID!
     $firstName: String!
     $lastName: String!

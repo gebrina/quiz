@@ -9,7 +9,7 @@ const Register = () => {
       firstName: "",
       lastName: "",
       email: "",
-      passowrd: "",
+      password: "",
     },
     validationSchema: registerValidation,
     onSubmit: () => {},
@@ -67,11 +67,11 @@ const Register = () => {
           <input
             id="password"
             type="password"
-            name="passowrd"
+            name="password"
             onChange={handleChange}
             className="input-control"
           />
-          {errors.passowrd && touched.passowrd && (
+          {errors.password && touched.password && (
             <small className="text-red-600">{errors.email}</small>
           )}
         </div>
