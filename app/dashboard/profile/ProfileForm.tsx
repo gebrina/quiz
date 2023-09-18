@@ -5,7 +5,7 @@ import { getUserById } from "@/app/graphql";
 import { registerValidation } from "@/app/validation";
 import { useQuery } from "@apollo/client";
 import { useFormik } from "formik";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 export type User = {
   id: string;
@@ -33,12 +33,25 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
     password: "",
   };
 
-  const { values, handleChange, handleSubmit, errors, touched, resetForm } =
-    useFormik({
-      initialValues,
-      validationSchema: registerValidation,
-      onSubmit: () => {},
-    });
+  const {
+    values,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+    resetForm,
+  } = useFormik({
+    initialValues,
+    validationSchema: registerValidation,
+    onSubmit: () => {},
+  });
+
+  useEffect(() => {
+    setFieldValue("firstName", data?.findOneUser?.firstName);
+    setFieldValue("lastName", data?.findOneUser.lastName);
+    setFieldValue("email", data?.findOneUser?.email);
+  }, [data]);
 
   if (loading)
     return (
@@ -46,8 +59,10 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
         Loading user info...
       </h1>
     );
+
   if (error)
     return <h1 className="text-3xl text-red-500 text-center my-10"></h1>;
+
   return (
     <section className="w-full mx-auto text-lg text-slate-300">
       <h1 className="text-center text-3xl my-2">Upadte Your Profile</h1>
@@ -62,9 +77,9 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
             name="firstName"
             id="fName"
             onChange={handleChange}
-            value={values.firstName || data?.findOneUser?.firstName}
+            value={values.firstName}
           />
-          {errors.firstName && (
+          {touched.firstName && errors.firstName && (
             <small className="text-red-500">{errors.firstName}</small>
           )}
         </div>
@@ -76,9 +91,9 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
             name="lastName"
             id="lName"
             onChange={handleChange}
-            value={values.lastName || data?.findOneUser?.lastName}
+            value={values.lastName}
           />
-          {errors.lastName && (
+          {touched.lastName && errors.lastName && (
             <small className="text-red-500">{errors.lastName}</small>
           )}
         </div>
@@ -90,7 +105,7 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
             name="email"
             id="fName"
             onChange={handleChange}
-            value={values.email || data?.findOneUser?.email}
+            value={values.email}
           />
           {errors.email && (
             <small className="text-red-500">{errors.email}</small>
@@ -106,7 +121,7 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
             onChange={handleChange}
             value={values.password}
           />
-          {errors.password && (
+          {touched.password && errors.password && (
             <small className="text-red-500">{errors.password}</small>
           )}
         </div>
