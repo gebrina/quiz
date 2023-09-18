@@ -1,6 +1,9 @@
 "use client";
 
+import { useQuizContext } from "@/app/context/quiz";
+import { getUserById } from "@/app/graphql";
 import { registerValidation } from "@/app/validation";
+import { useQuery } from "@apollo/client";
 import { useFormik } from "formik";
 import { FC } from "react";
 
@@ -17,12 +20,19 @@ type ProfileProps = {
 };
 
 const ProfileForm: FC<ProfileProps> = ({ user }) => {
+  const { loggedInUser } = useQuizContext();
+  const userId = loggedInUser?.user?.id;
+  const { data, loading, error } = useQuery(getUserById, {
+    variables: { userId },
+  });
+
   const initialValues = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   };
+
   const { values, handleChange, handleSubmit, errors, touched, resetForm } =
     useFormik({
       initialValues,
@@ -30,21 +40,29 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
       onSubmit: () => {},
     });
 
+  if (loading)
+    return (
+      <h1 className="text-3xl text-center my-10 text-slate-300">
+        Loading user info...
+      </h1>
+    );
+  if (error)
+    return <h1 className="text-3xl text-red-500 text-center my-10"></h1>;
   return (
-    <section className="w-max mx-auto text-lg text-slate-300">
+    <section className="w-full mx-auto text-lg text-slate-300">
       <h1 className="text-center text-3xl my-2">Upadte Your Profile</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flxe-col md:flex-row md:w-1/2 flex-wrap mx-auto gap-4"
+        className="flex flex-col md:w-1/3  mx-auto gap-4"
       >
-        <div className=" flex flex-col">
+        <div className="flex flex-col">
           <label htmlFor="fName">First Name</label>
           <input
             className="input-control"
             name="firstName"
             id="fName"
             onChange={handleChange}
-            value={values.firstName}
+            value={values.firstName || data?.findOneUser?.firstName}
           />
           {errors.firstName && (
             <small className="text-red-500">{errors.firstName}</small>
@@ -58,7 +76,7 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
             name="lastName"
             id="lName"
             onChange={handleChange}
-            value={values.lastName}
+            value={values.lastName || data?.findOneUser?.lastName}
           />
           {errors.lastName && (
             <small className="text-red-500">{errors.lastName}</small>
@@ -72,7 +90,7 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
             name="email"
             id="fName"
             onChange={handleChange}
-            value={values.email}
+            value={values.email || data?.findOneUser?.email}
           />
           {errors.email && (
             <small className="text-red-500">{errors.email}</small>
@@ -92,9 +110,9 @@ const ProfileForm: FC<ProfileProps> = ({ user }) => {
             <small className="text-red-500">{errors.password}</small>
           )}
         </div>
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full mt-4 flex items-center justify-center">
           <button
-            className="w-max px-6 bg-opacity-25 
+            className="w-full  px-6 bg-opacity-25 
         border-[1px] bg-green-600 p-1 
           hover:bg-opacity-50
         text-2xl"

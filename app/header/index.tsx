@@ -41,7 +41,7 @@ const Header = () => {
             className={`hover:text-yellow-500 ${
               pathname == "/dashboard" && "active-link"
             }`}
-            href={"/dashboard/quiz"}
+            href={"/dashboard"}
           >
             Dashboard
           </Link>

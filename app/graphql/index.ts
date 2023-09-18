@@ -86,3 +86,14 @@ export const getQuizCategoryById = gql`
     }
   }
 `;
+
+export const getUserById = gql`
+  query ($userId: String!) {
+    findOneUser(userId: $userId) {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+`;
