@@ -92,7 +92,7 @@ const Register = () => {
             className="input-control"
           />
           {errors.password && touched.password && (
-            <small className="text-red-600">{errors.email}</small>
+            <small className="text-red-600">{errors.password}</small>
           )}
         </div>
         <button className="w-full bg-yellow-800 py-2 text-lg hover:bg-slate-900 transition-all hover:border-[1px] mt-4">
