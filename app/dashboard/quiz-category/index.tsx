@@ -5,7 +5,7 @@ import { useState } from "react";
 import QuizCategoryForm from "./Quiz-categoryForm";
 const QuizCategory = () => {
   const [action, setAction] = useState<string>("");
-
+  const [category, setCategory] = useState<any>();
   const { error, loading, data } = useQuery(getQuizCategoriesQuery);
 
   if (loading)
@@ -17,7 +17,7 @@ const QuizCategory = () => {
 
   return (
     <section className="text-slate-300 mt-10">
-      {action && <QuizCategoryForm action={action} setAction={setAction} />}
+      {action && <QuizCategoryForm action={action} category={category} />}
       <section>
         <table className="w-full md:w-2/3  border-l-2 mx-auto text-center">
           <caption className="relatvie">
@@ -57,7 +57,10 @@ const QuizCategory = () => {
                 <td className="py-2">{category.name}</td>
                 <td className="py-2">{category.quizzes.length}</td>
                 <td className="py-2">
-                  <button className="bg-green-500 px-2 rounded-sm hover:bg-opacity-50">
+                  <button
+                    onClick={() => setCategory(category)}
+                    className="bg-green-500 px-2 rounded-sm hover:bg-opacity-50"
+                  >
                     Update
                   </button>
                 </td>

@@ -8,11 +8,15 @@ import {
   getQuizCategoriesQuery,
 } from "@/app/graphql";
 
+type QuizCategory = {
+  id: string;
+  name: string;
+};
 type QuizCategoryFormProps = {
   action: string;
-  setAction: Function;
+  category: QuizCategory;
 };
-const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, setAction }) => {
+const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action }) => {
   const [createQuizCategory, { data, error, loading, client }] = useMutation(
     createQuizCategoryMutation,
     {
