@@ -151,7 +151,6 @@ export const createQuizCategoryMutation = gql`
   mutation createQuizCategory($name: String!) {
     createQuizCategory(categoryInput: { name: $name }) {
       id
-      name
     }
   }
 `;

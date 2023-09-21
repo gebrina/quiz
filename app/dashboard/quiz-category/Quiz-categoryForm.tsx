@@ -2,20 +2,45 @@
 import { useFormik } from "formik";
 import { quizCategoryValidation } from "@/app/validation";
 import { FC } from "react";
+import { useMutation } from "@apollo/client";
+import {
+  createQuizCategoryMutation,
+  getQuizCategoriesQuery,
+} from "@/app/graphql";
 
 type QuizCategoryFormProps = {
   action: string;
   setAction: Function;
 };
 const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, setAction }) => {
+  const [createQuizCategory, { data, error, loading, client }] = useMutation(
+    createQuizCategoryMutation,
+    {
+      errorPolicy: "all",
+      onCompleted: () => {
+        client.refetchQueries({ include: "all" });
+      },
+    }
+  );
+
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({
     initialValues: {
       name: "",
     },
     validationSchema: quizCategoryValidation,
-    onSubmit: () => {},
+    onSubmit: () => handleCreateQuizCategory(),
   });
+  if (loading) return <h1 className="text-center text-3xl">Submitting...</h1>;
+  if (error)
+    return (
+      <h1 className="text-center text-3xl text-red-500">{error.message}</h1>
+    );
 
+  const handleCreateQuizCategory = () => {
+    createQuizCategory({
+      variables: { ...values },
+    });
+  };
   return (
     <section className="flex item-center justify-center my-5">
       <form onSubmit={handleSubmit}>
