@@ -26,17 +26,19 @@ const QuizCategory = () => {
             </h1>
 
             <button
-              onClick={() => setAction("new")}
-              className="px-3 text-[22px] border-[1px]
-                bg-green-900
-                hover:bg-opacity-80
-                rounded
-                transition-all
-                float-right
-                mb-2
-               "
+              onClick={() => {
+                action ? setAction("") : setAction("new");
+              }}
+              className={`px-3 text-[22px] border-[1px]
+              hover:bg-opacity-80
+              rounded
+              transition-all
+              float-right
+              mb-2
+              ${action ? "bg-red-500" : "bg-green-700"}
+             `}
             >
-              Add Category
+              {action ? "Cancel" : "Add Category"}
             </button>
           </caption>
 
