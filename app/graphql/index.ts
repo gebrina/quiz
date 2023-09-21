@@ -15,10 +15,13 @@ export const LoginMutation = gql`
 `;
 
 export const getQuizCategoriesQuery = gql`
-  query findAllQuiCategoryies {
+  query {
     findAllQuizCategory {
-      id
       name
+      id
+      quizzes {
+        qusetion
+      }
     }
   }
 `;
@@ -140,6 +143,15 @@ export const createUserMutation = gql`
       }
     ) {
       id
+    }
+  }
+`;
+
+export const createQuizCategoryMutation = gql`
+  mutation createQuizCategory($name: String!) {
+    createQuizCategory(categoryInput: { name: $name }) {
+      id
+      name
     }
   }
 `;
