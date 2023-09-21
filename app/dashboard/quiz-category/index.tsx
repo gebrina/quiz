@@ -2,6 +2,7 @@
 import { getQuizCategoriesQuery } from "@/app/graphql";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
+import QuizCategoryForm from "./Quiz-categoryForm";
 const QuizCategory = () => {
   const [action, setAction] = useState<string>("");
 
@@ -16,11 +17,29 @@ const QuizCategory = () => {
 
   return (
     <section className="text-slate-300 mt-10">
+      {action && <QuizCategoryForm action={action} setAction={setAction} />}
       <section>
         <table className="w-full md:w-2/3  border-l-2 mx-auto text-center">
-          <caption className="text-3xl py-2 underline decoration-yellow-500">
-            Quiz Categories
+          <caption className="relatvie">
+            <h1 className="text-3xl py-2 underline decoration-yellow-500 ">
+              Quiz Categories
+            </h1>
+
+            <button
+              onClick={() => setAction("new")}
+              className="px-3 text-[22px] border-[1px]
+                bg-green-900
+                hover:bg-opacity-80
+                rounded
+                transition-all
+                float-right
+                mb-2
+               "
+            >
+              Add Category
+            </button>
           </caption>
+
           <thead className="bg-slate-800 text-xl">
             <th>ID</th>
             <th>Name</th>
