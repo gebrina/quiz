@@ -19,3 +19,7 @@ export const quizValidation = yup.object().shape({
   question: yup.string().required("Question is required!"),
   correctAnswer: yup.string().required("Correct Answer is required!"),
 });
+
+export const quizCategoryValidation = yup.object().shape({
+  name: yup.string().required(),
+});
