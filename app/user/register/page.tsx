@@ -22,6 +22,7 @@ const Register = () => {
   const [createUser, { data, error, loading }] = useMutation(
     createUserMutation,
     {
+      errorPolicy: "all",
       onCompleted: () => {
         router.push("/user/login");
       },
@@ -35,7 +36,7 @@ const Register = () => {
   };
 
   return (
-    <section className="text-slate-300 min-h-[80vh] flex items-center justify-center">
+    <section className="text-slate-300 min-h-[80vh]  flex flex-col items-center justify-center">
       <form
         className="flex flex-col gap-2 sm:w-3/4 md:w-1/5"
         onSubmit={handleSubmit}

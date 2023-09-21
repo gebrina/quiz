@@ -5,7 +5,6 @@ import { getUserById, updateUserMutation } from "@/app/graphql";
 import { registerValidation } from "@/app/validation";
 import { useQuery, useMutation } from "@apollo/client";
 import { useFormik } from "formik";
-import Link from "next/link";
 import { FC, useEffect } from "react";
 
 const ProfileForm: FC = () => {
@@ -52,18 +51,17 @@ const ProfileForm: FC = () => {
       <h1 className="text-3xl text-center my-10 text-slate-300">Loading...</h1>
     );
 
-  if (error || updateError)
+  if (error || updateError) {
     if (error?.message == "Invalid token") {
       handleLogout();
       location.href = location.origin + "/user/login";
     }
-  return (
-    <h1 className="text-3xl text-red-500 text-center my-10">
-      {error?.message || updateError?.message}
-    </h1>
-  );
-
-  console.log(updateError, upadateLoading, user);
+    return (
+      <h1 className="text-3xl text-red-500 text-center my-10">
+        {error?.message || updateError?.message}
+      </h1>
+    );
+  }
   const handleUpdateUser = () => {
     updateUser({
       variables: {
