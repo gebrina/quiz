@@ -9,7 +9,9 @@ import { getLoggedInUser, setLoggedInUser } from "@/app/lib";
 import { useQuizContext } from "@/app/context/quiz";
 
 const Page = () => {
-  const [authUser, { data, loading, error }] = useMutation(LoginMutation);
+  const [authUser, { data, loading, error }] = useMutation(LoginMutation, {
+    errorPolicy: "all",
+  });
   const { handleLogin: handleUserLogin } = useQuizContext();
   const router = useRouter();
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
@@ -49,15 +51,8 @@ const Page = () => {
       </h1>
     );
 
-  if (error)
-    return (
-      <h1 className="text-3xl text-red-500 text-center my-10">
-        Error happened: {error.message}
-      </h1>
-    );
-
   return (
-    <section className="flex items-center justify-center h-[80vh]">
+    <section className="flex items-center justify-center h-[80vh] flex-col">
       <form
         onSubmit={handleSubmit}
         className="text-slate-300 w-full sm:w-1/4 md:w-1/5 text-md flex flex-col gap-4"
@@ -97,6 +92,11 @@ const Page = () => {
           Login
         </button>
       </form>
+      {error && (
+        <h1 className="text-lg text-red-500 text-center my-10">
+          Error: {error.message}
+        </h1>
+      )}
     </section>
   );
 };

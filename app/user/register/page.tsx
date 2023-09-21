@@ -1,7 +1,10 @@
 "use client";
 
+import { useMutation } from "@apollo/client";
 import { registerValidation } from "@/app/validation";
 import { useFormik } from "formik";
+import { createUserMutation } from "@/app/graphql";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
@@ -12,8 +15,25 @@ const Register = () => {
       password: "",
     },
     validationSchema: registerValidation,
-    onSubmit: () => {},
+    onSubmit: () => handleCreateUser(),
   });
+
+  const router = useRouter();
+  const [createUser, { data, error, loading }] = useMutation(
+    createUserMutation,
+    {
+      onCompleted: () => {
+        router.push("/user/login");
+      },
+    }
+  );
+
+  const handleCreateUser = () => {
+    createUser({
+      variables: { ...values },
+    });
+  };
+
   return (
     <section className="text-slate-300 min-h-[80vh] flex items-center justify-center">
       <form
@@ -79,6 +99,12 @@ const Register = () => {
           Register
         </button>
       </form>
+      {loading && (
+        <p className="text-lg text-center text-slate-300">Registering...</p>
+      )}
+      {error && (
+        <p className="text-lg text-center text-red-500">{error.message}</p>
+      )}
     </section>
   );
 };

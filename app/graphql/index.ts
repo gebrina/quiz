@@ -123,3 +123,23 @@ export const updateUserMutation = gql`
     }
   }
 `;
+
+export const createUserMutation = gql`
+  mutation createUser(
+    $firstName: String!
+    $lastName: String!
+    $password: String!
+    $email: String!
+  ) {
+    createUser(
+      user: {
+        firstName: $firstName
+        lastName: $lastName
+        password: $password
+        email: $email
+      }
+    ) {
+      id
+    }
+  }
+`;
