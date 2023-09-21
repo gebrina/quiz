@@ -1,7 +1,10 @@
 "use client";
 import { getQuizCategoriesQuery } from "@/app/graphql";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { useState } from "react";
 const QuizCategory = () => {
+  const [action, setAction] = useState<string>("");
+
   const { error, loading, data } = useQuery(getQuizCategoriesQuery);
 
   if (loading)
@@ -15,6 +18,9 @@ const QuizCategory = () => {
     <section className="text-slate-300 mt-10">
       <section>
         <table className="w-full md:w-2/3  border-l-2 mx-auto text-center">
+          <caption className="text-3xl py-2 underline decoration-yellow-500">
+            Quiz Categories
+          </caption>
           <thead className="bg-slate-800 text-xl">
             <th>ID</th>
             <th>Name</th>
@@ -30,12 +36,12 @@ const QuizCategory = () => {
                 <td className="py-2">{category.name}</td>
                 <td className="py-2">{category.quizzes.length}</td>
                 <td className="py-2">
-                  <button className="bg-green-500 px-2 rounded-sm text-white hover:bg-opacity-50">
+                  <button className="bg-green-500 px-2 rounded-sm hover:bg-opacity-50">
                     Update
                   </button>
                 </td>
                 <td className="py-2">
-                  <button className="bg-red-500 px-2 rounded-sm text-white hover:bg-opacity-50">
+                  <button className="bg-red-500 px-2 rounded-sm hover:bg-opacity-50">
                     Delete
                   </button>
                 </td>

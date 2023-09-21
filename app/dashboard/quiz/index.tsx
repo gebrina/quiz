@@ -39,7 +39,7 @@ const Quiz = () => {
   "
     >
       {action && <QuizForm user={loggedInUser.user.id} action={action} />}
-      <section>
+      <section className="text-lg">
         <table className="w-full border-l-2 my-5">
           <caption className="text-3xl px-12 py-2 mb-2 underline decoration-yellow-500">
             Quizzes
