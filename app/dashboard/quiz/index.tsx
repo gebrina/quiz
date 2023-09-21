@@ -58,35 +58,31 @@ const Quiz = () => {
             )}
           </caption>
           <thead className="bg-slate-500  bg-opacity-30">
-            <tr className="h-14">
-              <th>Question</th>
-              <th>User</th>
-              <th>Category</th>
-              <th colSpan={2}>Action</th>
-            </tr>
+            <th className="py-2">Question</th>
+            <th>User</th>
+            <th>Category</th>
+            <th colSpan={2}>Action</th>
           </thead>
           <tbody>
             {data.findAllQuiz.map((quiz: any) => (
-              <tr
-                key={quiz.qusetion}
-                className="text-center hover:bg-black h-12"
-              >
+              <tr key={quiz.qusetion} className="text-center hover:bg-black">
                 <td title={quiz.qusetion}>
                   {quiz.qusetion.substring(0, 10)} ...
                 </td>
                 <td>{quiz?.user?.firstName}</td>
                 <td>{quiz.category.name}</td>
-                <td>
-                  <button className="text-md shadow-sm hover:bg-opacity-50 bg-red-500 bg-opacity-90 px-2 rounded-sm cursor-pointer">
-                    Delete
-                  </button>
-                </td>
+
                 <td>
                   <button
                     onClick={() => setAction("update")}
                     className="text-md shadow-sm hover:bg-opacity-50 bg-green-500 bg-opacity-30 px-2 rounded-sm cursor-pointer"
                   >
                     Update
+                  </button>
+                </td>
+                <td className="py-2">
+                  <button className="text-md shadow-sm hover:bg-opacity-50 bg-red-500 bg-opacity-90 px-2 rounded-sm cursor-pointer">
+                    Delete
                   </button>
                 </td>
               </tr>

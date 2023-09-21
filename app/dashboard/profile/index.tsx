@@ -1,12 +1,11 @@
 "use client";
 
-import UserForm, { User } from "./ProfileForm";
+import UserForm from "./ProfileForm";
 
 const UserProfile = () => {
-  let user: any;
   return (
     <>
-      <UserForm user={user} />
+      <UserForm />
     </>
   );
 };
