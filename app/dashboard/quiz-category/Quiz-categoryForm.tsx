@@ -5,7 +5,6 @@ import { FC, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import {
   createQuizCategoryMutation,
-  getQuizCategoriesQuery,
   updateQuizCategoryMutation,
 } from "@/app/graphql";
 
