@@ -1,22 +1,24 @@
 "use client";
 import { useFormik } from "formik";
 import { quizCategoryValidation } from "@/app/validation";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import {
   createQuizCategoryMutation,
   getQuizCategoriesQuery,
+  updateQuizCategoryMutation,
 } from "@/app/graphql";
 
 type QuizCategory = {
   id: string;
   name: string;
+  quizzes: any[];
 };
 type QuizCategoryFormProps = {
   action: string;
   category: QuizCategory;
 };
-const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action }) => {
+const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, category }) => {
   const [createQuizCategory, { data, error, loading, client }] = useMutation(
     createQuizCategoryMutation,
     {
@@ -26,19 +28,58 @@ const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action }) => {
       },
     }
   );
-
-  const { values, errors, touched, handleSubmit, handleChange } = useFormik({
-    initialValues: {
-      name: "",
+  const [
+    updateQuizCategory,
+    {
+      loading: updateLoading,
+      error: updateError,
+      data: updatedData,
+      client: updateClient,
     },
-    validationSchema: quizCategoryValidation,
-    onSubmit: () => handleCreateQuizCategory(),
+  ] = useMutation(updateQuizCategoryMutation, {
+    onCompleted: () => {
+      updateClient.refetchQueries({ include: "all" });
+    },
   });
-  if (loading) return <h1 className="text-center text-3xl">Submitting...</h1>;
-  if (error)
+
+  const { values, errors, touched, handleSubmit, handleChange, setFieldValue } =
+    useFormik({
+      initialValues: {
+        name: "",
+      },
+      validationSchema: quizCategoryValidation,
+      onSubmit: () => {
+        if (action == "new") {
+          handleCreateQuizCategory();
+        } else {
+          handleUpdateQuizCategory();
+        }
+      },
+    });
+
+  useEffect(() => {
+    setFieldValue("name", category.name);
+  }, [category, setFieldValue]);
+
+  if (loading || updateLoading)
+    return <h1 className="text-center text-3xl">Submitting...</h1>;
+
+  if (error || updateError)
     return (
-      <h1 className="text-center text-3xl text-red-500">{error.message}</h1>
+      <h1 className="text-center text-3xl text-red-500">
+        {error?.message || updateError?.message}
+      </h1>
     );
+
+  const handleUpdateQuizCategory = () => {
+    updateQuizCategory({
+      variables: {
+        categoryId: category.id,
+        quizzes: category.quizzes,
+        ...values,
+      },
+    });
+  };
 
   const handleCreateQuizCategory = () => {
     createQuizCategory({

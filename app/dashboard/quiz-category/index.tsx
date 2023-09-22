@@ -58,7 +58,10 @@ const QuizCategory = () => {
                 <td className="py-2">{category.quizzes.length}</td>
                 <td className="py-2">
                   <button
-                    onClick={() => setCategory(category)}
+                    onClick={() => {
+                      setAction("updated");
+                      setCategory(category);
+                    }}
                     className="bg-green-500 px-2 rounded-sm hover:bg-opacity-50"
                   >
                     Update
