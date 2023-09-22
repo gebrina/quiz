@@ -26,7 +26,14 @@ const QuizCategory = () => {
       <h1 className="text-center text-3xl text-red-500">{error.message}</h1>
     );
 
-  const handleDeleteQuizCategory = (categoryId: string) => {};
+  const handleDeleteQuizCategory = (categoryId: string) => {
+    deleteQuizCategory({
+      variables: {
+        categoryId,
+      },
+    });
+  };
+
   return (
     <section className="text-slate-300 mt-10">
       {action && <QuizCategoryForm action={action} category={category} />}
@@ -80,7 +87,10 @@ const QuizCategory = () => {
                   </button>
                 </td>
                 <td className="py-2">
-                  <button className="bg-red-500 px-2 rounded-sm hover:bg-opacity-50">
+                  <button
+                    onClick={() => handleDeleteQuizCategory(category.id)}
+                    className="bg-red-500 px-2 rounded-sm hover:bg-opacity-50"
+                  >
                     Delete
                   </button>
                 </td>

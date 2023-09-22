@@ -164,7 +164,7 @@ export const updateQuizCategoryMutation = gql`
 `;
 
 export const deleteQuizCategoryMutation = gql`
-  mutation ($categoryId: ID!) {
+  mutation ($categoryId: String!) {
     deleteQuizCategory(categoryId: $categoryId) {
       id
     }

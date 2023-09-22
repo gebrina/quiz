@@ -52,7 +52,7 @@ const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, category }) => {
     });
 
   useEffect(() => {
-    setFieldValue("name", category.name);
+    setFieldValue("name", category?.name);
   }, [category, setFieldValue]);
 
   if (loading || updateLoading)
