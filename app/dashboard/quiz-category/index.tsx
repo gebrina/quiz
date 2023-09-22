@@ -1,12 +1,23 @@
 "use client";
-import { getQuizCategoriesQuery } from "@/app/graphql";
-import { useQuery } from "@apollo/client";
+import {
+  deleteQuizCategoryMutation,
+  getQuizCategoriesQuery,
+} from "@/app/graphql";
+import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import QuizCategoryForm from "./Quiz-categoryForm";
 const QuizCategory = () => {
   const [action, setAction] = useState<string>("");
   const [category, setCategory] = useState<any>();
   const { error, loading, data } = useQuery(getQuizCategoriesQuery);
+  const [
+    deleteQuizCategory,
+    { loading: deleteLoading, error: deleteError, data: deleteData, client },
+  ] = useMutation(deleteQuizCategoryMutation, {
+    onCompleted: () => {
+      client.refetchQueries({ include: "active" });
+    },
+  });
 
   if (loading)
     return <h1 className="text-center text-3xl text-red-500">Loading...</h1>;
@@ -15,6 +26,7 @@ const QuizCategory = () => {
       <h1 className="text-center text-3xl text-red-500">{error.message}</h1>
     );
 
+  const handleDeleteQuizCategory = (categoryId: string) => {};
   return (
     <section className="text-slate-300 mt-10">
       {action && <QuizCategoryForm action={action} category={category} />}

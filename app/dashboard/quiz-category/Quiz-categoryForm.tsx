@@ -12,7 +12,6 @@ import {
 type QuizCategory = {
   id: string;
   name: string;
-  quizzes: any[];
 };
 type QuizCategoryFormProps = {
   action: string;
@@ -30,15 +29,10 @@ const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, category }) => {
   );
   const [
     updateQuizCategory,
-    {
-      loading: updateLoading,
-      error: updateError,
-      data: updatedData,
-      client: updateClient,
-    },
+    { loading: updateLoading, error: updateError, client: updateClient },
   ] = useMutation(updateQuizCategoryMutation, {
     onCompleted: () => {
-      updateClient.refetchQueries({ include: "all" });
+      updateClient.refetchQueries({ include: "active" });
     },
   });
 
@@ -75,7 +69,6 @@ const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, category }) => {
     updateQuizCategory({
       variables: {
         categoryId: category.id,
-        quizzes: category.quizzes,
         ...values,
       },
     });
@@ -86,6 +79,7 @@ const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, category }) => {
       variables: { ...values },
     });
   };
+
   return (
     <section className="flex item-center justify-center my-5">
       <form onSubmit={handleSubmit}>
@@ -103,9 +97,9 @@ const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, category }) => {
           <button
             type="submit"
             className="w-full  px-6 bg-opacity-25 
-        border-[1px] bg-green-600 p-1 
-          hover:bg-opacity-50
-        text-2xl"
+                        border-[1px] bg-green-600 p-1 
+                          hover:bg-opacity-50
+                        text-2xl"
           >
             {action === "new" ? "Add" : "Update"}
           </button>

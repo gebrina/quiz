@@ -19,6 +19,9 @@ export const getQuizCategoriesQuery = gql`
     findAllQuizCategory {
       name
       id
+      quizzes {
+        qusetion
+      }
     }
   }
 `;
@@ -156,6 +159,14 @@ export const updateQuizCategoryMutation = gql`
   mutation ($categoryId: ID!, $name: String!) {
     updateQuizCategory(categoryInput: { id: $categoryId, name: $name }) {
       name
+    }
+  }
+`;
+
+export const deleteQuizCategoryMutation = gql`
+  mutation ($categoryId: ID!) {
+    deleteQuizCategory(categoryId: $categoryId) {
+      id
     }
   }
 `;
