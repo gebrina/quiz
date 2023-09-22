@@ -1,205 +1,51 @@
 "use client";
 import { getQuizCategoriesQuery } from "@/app/graphql";
 import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 
 const RandomQuiz = () => {
   const { error, loading, data } = useQuery(getQuizCategoriesQuery);
+  const [quizCategory, setQuizCategory] = useState<any>([]);
+
+  useEffect(() => {
+    let quizCategoryLength = data?.findAllQuizCategory?.length;
+    if (quizCategoryLength > 0) {
+      let randomIndex = Math.floor(Math.random() * quizCategoryLength);
+      const randomQuizCategory = data?.findAllQuizCategory?.[randomIndex];
+      setQuizCategory(randomQuizCategory);
+    }
+  }, [data]);
 
   if (loading)
     return (
       <h1 className="text-3xl text-center text-slate-300 my-10">Loading...</h1>
     );
-  if (error) return <h1 className="text-3xl text-red-500"></h1>;
+  if (error) return <h1 className="text-3xl text-red-500">{error.message}</h1>;
 
   return (
-    <section className="mt-5">
-      <section className="grid  container mx-auto md:grid-cols-2 gap-4">
-        <div className="question py-4 text-xl text-slate-300">
-          <p className="my-2 w-max text-3xl">What is CSS and Sass</p>
-
-          <ul className="flex flex-col gap-y-4 mt-2">
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl  p-2 rounded-lg  bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <div className="question py-4 text-xl text-slate-300">
-          <p className="my-2 w-max text-3xl">What is Angular Js</p>
-
-          <ul className="flex flex-col gap-y-4 mt-2">
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl  p-2 rounded-lg  bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <div className="question py-4 text-xl text-slate-300">
-          <p className="my-2 w-max text-3xl">What is Node Js</p>
-
-          <ul className="flex flex-col gap-y-4 mt-2">
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl  p-2 rounded-lg  bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <div className="question py-4 text-xl text-slate-300">
-          <p className="my-2 w-max text-3xl">What is JavaScript</p>
-
-          <ul className="flex flex-col gap-y-4 mt-2">
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl  p-2 rounded-lg  bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <div className="question py-4 text-xl text-slate-300">
-          <p className="my-2 w-max text-3xl">What is React Js</p>
-
-          <ul className="flex flex-col gap-y-4 mt-2">
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl  p-2 rounded-lg  bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-          </ul>
-        </div>
-
-        <div className="question py-4 text-xl text-slate-300">
-          <p className="my-2 w-max text-3xl">How to use CSS in JS</p>
-
-          <ul className="flex flex-col gap-y-4 mt-2">
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl  p-2 rounded-lg  bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-            <li className="text-2xl p-2 rounded-lg border-slate-500 bg-slate-500 bg bg-opacity-25 hover:bg-opacity-10 cursor-pointer">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                neque!
-              </p>
-            </li>
-          </ul>
-        </div>
-      </section>
+    <section className="text-slate-300 my-10">
+      <h1 className="text-center text-3xl underline decoration-yellow-500">
+        {quizCategory.name}
+      </h1>
+      <div className="my-7 text-xl flex justify-center items-center flex-col">
+        {quizCategory?.quizzes?.map((quiz: any, index: number) => (
+          <div key={quiz.id} className="mb-4 md:w-1/2">
+            <p className="font-semibold">
+              {index + 1}, {quiz.qusetion}
+            </p>
+            {quiz?.answers?.map((choice: any) => (
+              <ul
+                className="bg-slate-900 bg-opacity-30 mt-2 flex flex-col gap-2"
+                key={choice.id}
+              >
+                <li className="p-2 hover:cursor-pointer hover:bg-yellow-300 hover:bg-opacity-25">
+                  {choice.answer}
+                </li>
+              </ul>
+            ))}
+          </div>
+        ))}
+      </div>
     </section>
   );
 };
