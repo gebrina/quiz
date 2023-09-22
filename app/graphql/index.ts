@@ -1,31 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const LoginMutation = gql`
-  mutation authUser($email: String!, $password: String!) {
-    authUser(user: { email: $email, password: $password }) {
-      user {
-        firstName
-        lastName
-        email
-        id
-      }
-      access_token
-    }
-  }
-`;
-
-export const getQuizCategoriesQuery = gql`
-  query {
-    findAllQuizCategory {
-      name
-      id
-      quizzes {
-        qusetion
-      }
-    }
-  }
-`;
-
+// Quiz Muatations and Queries
 export const addQuizMutation = gql`
   mutation (
     $user: ID!
@@ -90,6 +65,21 @@ export const getQuizCategoryById = gql`
   }
 `;
 
+// User Queries and Mutations
+export const LoginMutation = gql`
+  mutation authUser($email: String!, $password: String!) {
+    authUser(user: { email: $email, password: $password }) {
+      user {
+        firstName
+        lastName
+        email
+        id
+      }
+      access_token
+    }
+  }
+`;
+
 export const getUserById = gql`
   query ($userId: String!) {
     findOneUser(userId: $userId) {
@@ -143,6 +133,24 @@ export const createUserMutation = gql`
       }
     ) {
       id
+    }
+  }
+`;
+
+// Quiz Categoires
+export const getQuizCategoriesQuery = gql`
+  query {
+    findAllQuizCategory {
+      id
+      name
+      quizzes {
+        qusetion
+        correctAnswer
+        answers {
+          id
+          answer
+        }
+      }
     }
   }
 `;

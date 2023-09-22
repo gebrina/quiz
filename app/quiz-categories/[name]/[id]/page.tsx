@@ -12,12 +12,14 @@ const Quiz = () => {
 
   if (loading)
     return <h1 className="text-center my-10 text-3xl">Loading...</h1>;
+
   if (error)
     return (
       <h1 className="text-center text-3xl my-10 text-red-500">
         {error.message}
       </h1>
     );
+
   return (
     <section className="container mx-auto   text-slate-300 my-10">
       <h1 className="text-center text-3xl  border-b-2 border-yellow-500 font-bold">

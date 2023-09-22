@@ -12,10 +12,12 @@ type QuizCategory = {
   id: string;
   name: string;
 };
+
 type QuizCategoryFormProps = {
   action: string;
   category: QuizCategory;
 };
+
 const QuizCategoryForm: FC<QuizCategoryFormProps> = ({ action, category }) => {
   const [createQuizCategory, { data, error, loading, client }] = useMutation(
     createQuizCategoryMutation,

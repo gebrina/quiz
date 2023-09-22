@@ -1,4 +1,16 @@
-const page = () => {
+"use client";
+import { getQuizCategoriesQuery } from "@/app/graphql";
+import { useQuery } from "@apollo/client";
+
+const RandomQuiz = () => {
+  const { error, loading, data } = useQuery(getQuizCategoriesQuery);
+
+  if (loading)
+    return (
+      <h1 className="text-3xl text-center text-slate-300 my-10">Loading...</h1>
+    );
+  if (error) return <h1 className="text-3xl text-red-500"></h1>;
+
   return (
     <section className="mt-5">
       <section className="grid  container mx-auto md:grid-cols-2 gap-4">
@@ -192,4 +204,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default RandomQuiz;
