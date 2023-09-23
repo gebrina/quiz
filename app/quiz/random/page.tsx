@@ -21,6 +21,7 @@ const RandomQuiz = () => {
       const randomQuizCategory = data?.findAllQuizCategory?.[randomIndex];
       totalQuestionsRef.current = randomQuizCategory.quizzes.length;
       setQuizCategory(randomQuizCategory);
+      setSelectedChoice(Array.from({ length: quizCategoryLength }));
     }
   }, [data]);
 
@@ -44,12 +45,14 @@ const RandomQuiz = () => {
         right: correctAnswer === selectedAnswer,
       })
     ) {
-      if (selectedAnswer === correctAnswer)
+      if (selectedAnswer === correctAnswer) {
         numberofCorrectAnswersRef.current += 1;
-      setSelectedChoice([
-        ...(selectedChoice ?? []),
-        { right: selectedAnswer === correctAnswer, idx, cIdx },
-      ]);
+      }
+      selectedChoice.splice(idx, 1, {
+        right: correctAnswer === selectedAnswer,
+        idx,
+        cIdx,
+      });
       setNumberofAnsweredChoices((prev) => prev + 1);
     }
   };
