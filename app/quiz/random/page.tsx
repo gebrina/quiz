@@ -89,7 +89,7 @@ const RandomQuiz = () => {
             {quizCategory.name}
           </h1>
           <h1 className="bg-yellow-500 text-xl bg-opacity-40 px-2 rounded-sm shadow-md shadow-yellow-200">
-            # Answerd Questions: {numberofAnswerdChoices} /
+            # Answered Questions: {numberofAnswerdChoices} /
             {totalQuestionsRef.current}
           </h1>
         </div>
