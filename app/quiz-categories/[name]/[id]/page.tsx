@@ -22,7 +22,33 @@ const Quiz = () => {
   });
   const [activeQuestion, setActiveQuestion] = useState<Question>();
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [timer, setTimer] = useState("00:00");
+  const secondsRef = useRef<string>("00");
+  const minutesRef = useRef<string>("0");
+  const timerIntervalRef = useRef<any>(null);
   const totalQuestionsRef = useRef<number>(0);
+
+  const addZeroPrefix = (value: string) => {
+    return Number(value) < 9 ? "0" + value : value;
+  };
+
+  useEffect(() => {
+    timerIntervalRef.current = setInterval(() => {
+      let secondsRefInNumber = Number(secondsRef.current);
+      secondsRef.current = (secondsRefInNumber + 1).toString();
+      if (secondsRefInNumber === 59) {
+        let minutesRefInNumber = Number(minutesRef.current);
+        minutesRef.current = (minutesRefInNumber + 1).toString();
+        secondsRef.current = "00";
+      }
+      setTimer(
+        addZeroPrefix(minutesRef.current) +
+          " : " +
+          addZeroPrefix(secondsRef.current)
+      );
+    }, 1000);
+    return () => clearInterval(timerIntervalRef.current);
+  }, []);
 
   useEffect(() => {
     const quizzes = data?.findOneQuizCategory?.quizzes;
@@ -33,7 +59,9 @@ const Quiz = () => {
   }, [data, questionIndex]);
 
   if (loading)
-    return <h1 className="text-center my-10 text-3xl">Loading...</h1>;
+    return (
+      <h1 className="text-center my-10 text-slate-300 text-3xl">Loading...</h1>
+    );
 
   if (error)
     return (
@@ -42,39 +70,51 @@ const Quiz = () => {
       </h1>
     );
 
-  const handleNext = () => {};
+  const handleNext = () => {
+    if (questionIndex + 1 <= totalQuestionsRef.current) {
+      setQuestionIndex((prev) => prev + 1);
+    }
+  };
 
   return (
     <section className="container mx-auto md:w-1/2  text-slate-300 my-10">
       <h1 className="text-center text-3xl underline decoration-yellow-600 font-bold">
-        {data?.findOneQuizCategory?.name}
+        {data?.findOneQuizCategory?.name} Quiz
       </h1>
       <section className="flex items-start flex-col my-10 gap-2">
         <p className="text-xl">
           {questionIndex + 1}, {activeQuestion?.qusetion}
         </p>
-        <ul className="flex flex-col mt-3 gap-2 text-lg">
+        <p className="flex w-full items-center justify-between font-semibold">
+          <span className="bg-black px-5">
+            {questionIndex + 1} of {totalQuestionsRef.current}
+          </span>
+          <span className="bg-yellow-500 text-black px-5 ">{timer}</span>
+        </p>
+        <ul className="flex flex-col mt-3 gap-3 w-full text-lg">
           {activeQuestion?.answers.map((choice: Answer) => (
             <li
-              className={`bg-slate-900 bg-opacity-80 px-2 py-1 hover:cursor-pointer hover:bg-opacity-30 rounded`}
+              className={`bg-slate-600 bg-opacity-50 px-2  py-1 hover:cursor-pointer hover:bg-opacity-30 rounded`}
               key={choice.id}
             >
               {choice.answer}
             </li>
           ))}
-          <button
-            className="bg-orange-900 py-2
+          {questionIndex + 1 < totalQuestionsRef.current && (
+            <button
+              className="bg-yellow-900 py-2
              rounded-md
-             transitio-all
-             hover:animate-pulse
+             transition-all
+             duration-500
              my-6
-             hover:shadow
+             hover:shadow-lg
              hover:shadow-yellow-500
-             w-max mx-auto px-12 text-xl"
-            onClick={handleNext}
-          >
-            Next Question
-          </button>
+             w-max  px-12 text-xl"
+              onClick={handleNext}
+            >
+              Next Question
+            </button>
+          )}
         </ul>
       </section>
     </section>
