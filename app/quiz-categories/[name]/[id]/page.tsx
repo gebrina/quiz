@@ -29,7 +29,7 @@ const Quiz = () => {
   const totalQuestionsRef = useRef<number>(0);
 
   const addZeroPrefix = (value: string) => {
-    return Number(value) < 9 ? "0" + value : value;
+    return Number(value) < 10 ? "0" + value : value;
   };
 
   useEffect(() => {
