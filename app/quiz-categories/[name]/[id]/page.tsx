@@ -18,6 +18,7 @@ type Question = {
 type SelectedChoice = {
   idx: number;
   cIdx: number;
+  correctAnswer: string;
   answer: string;
 };
 
@@ -30,6 +31,9 @@ const Quiz = () => {
   const [activeQuestion, setActiveQuestion] = useState<Question>();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [timer, setTimer] = useState("00:00");
+  const [score, setScore] = useState<number>(0);
+  const [showResult, setShowResult] = useState<boolean>(false);
+
   const secondsRef = useRef<string>("00");
   const minutesRef = useRef<string>("0");
   const timerIntervalRef = useRef<any>(null);
@@ -41,22 +45,26 @@ const Quiz = () => {
   };
 
   useEffect(() => {
-    timerIntervalRef.current = setInterval(() => {
-      let secondsRefInNumber = Number(secondsRef.current);
-      secondsRef.current = (secondsRefInNumber + 1).toString();
-      if (secondsRefInNumber === 59) {
-        let minutesRefInNumber = Number(minutesRef.current);
-        minutesRef.current = (minutesRefInNumber + 1).toString();
-        secondsRef.current = "0";
-      }
-      setTimer(
-        addZeroPrefix(minutesRef.current) +
-          " : " +
-          addZeroPrefix(secondsRef.current)
-      );
-    }, 1000);
+    if (!showResult) {
+      timerIntervalRef.current = setInterval(() => {
+        let secondsRefInNumber = Number(secondsRef.current);
+        secondsRef.current = (secondsRefInNumber + 1).toString();
+
+        if (secondsRefInNumber === 59) {
+          let minutesRefInNumber = Number(minutesRef.current);
+          minutesRef.current = (minutesRefInNumber + 1).toString();
+          secondsRef.current = "0";
+        }
+
+        setTimer(
+          addZeroPrefix(minutesRef.current) +
+            " : " +
+            addZeroPrefix(secondsRef.current)
+        );
+      }, 1000);
+    }
     return () => clearInterval(timerIntervalRef.current);
-  }, []);
+  }, [showResult]);
 
   useEffect(() => {
     const quizzes = data?.findOneQuizCategory?.quizzes;
@@ -84,8 +92,37 @@ const Quiz = () => {
     }
   };
 
-  const handleChoiceSelection = (idx: number, cIdx: number, answer: string) => {
-    selectedChoicesRef.current.splice(idx, 1, { idx, cIdx, answer });
+  const handleChoiceSelection = (
+    idx: number,
+    cIdx: number,
+    answer: string,
+    correctAnswer: string
+  ) => {
+    selectedChoicesRef.current.splice(idx, 1, {
+      idx,
+      cIdx,
+      answer,
+      correctAnswer,
+    });
+  };
+
+  const calculateResult = () => {
+    clearInterval(timerIntervalRef.current);
+    const correctAnswers = selectedChoicesRef.current.filter(
+      (choice) => choice.answer === choice.correctAnswer
+    );
+    setScore(correctAnswers.length);
+    setShowResult(true);
+  };
+
+  const handleRestartQuiz = () => {
+    clearInterval(timerIntervalRef.current);
+    minutesRef.current = "0";
+    secondsRef.current = "0";
+    setTimer("00:00");
+    selectedChoicesRef.current = [];
+    setShowResult(false);
+    setQuestionIndex(0);
   };
 
   return (
@@ -102,13 +139,25 @@ const Quiz = () => {
           <span className="bg-black px-5">
             {questionIndex + 1} of {totalQuestionsRef.current}
           </span>
-          <span className="bg-yellow-500 text-black px-5 ">{timer}</span>
+          {showResult && (
+            <span className="bg-green-900 rounded-full shadow-green-300 shadow-lg px-5 py-1">
+              Score: {score} / {totalQuestionsRef.current}
+            </span>
+          )}
+          <span className="bg-yellow-500 rounded text-black px-5 ">
+            {timer}
+          </span>
         </p>
         <ul className="flex flex-col mt-3 gap-3 w-full text-lg">
           {activeQuestion?.answers.map((choice: Answer, index: number) => (
             <li
               onClick={() =>
-                handleChoiceSelection(questionIndex, index, choice.answer)
+                handleChoiceSelection(
+                  questionIndex,
+                  index,
+                  choice.answer,
+                  activeQuestion.correctAnswer
+                )
               }
               className={`${
                 selectedChoicesRef.current[questionIndex]?.cIdx === index
@@ -120,7 +169,7 @@ const Quiz = () => {
               {choice.answer}
             </li>
           ))}
-          {questionIndex + 1 < totalQuestionsRef.current && (
+          {questionIndex + 1 < totalQuestionsRef.current ? (
             <button
               className="bg-yellow-900 py-2
              rounded-md
@@ -134,6 +183,47 @@ const Quiz = () => {
             >
               Next Question
             </button>
+          ) : (
+            <>
+              {selectedChoicesRef.current.length ===
+              totalQuestionsRef.current ? (
+                <div className="flex justify-between">
+                  {!showResult ? (
+                    <button
+                      onClick={calculateResult}
+                      className="bg-green-900 py-2
+                  rounded-md
+                  transition-all
+                  duration-500
+                  my-6
+                  hover:shadow-lg
+                  hover:shadow-green-500
+                  w-max  px-12 text-xl"
+                    >
+                      Show Result
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleRestartQuiz}
+                      className="bg-blue-900 py-2
+                  rounded-md
+                  transition-all
+                  duration-500
+                  my-6
+                  hover:shadow-lg
+                  hover:shadow-blue-500
+                  w-max  px-12 text-xl"
+                    >
+                      Restart Quiz
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <p className="bg-green-400 text-green-900  w-max px-5">
+                  You left this question answer and see your result !
+                </p>
+              )}
+            </>
           )}
         </ul>
       </section>

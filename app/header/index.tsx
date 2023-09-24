@@ -30,7 +30,7 @@ const Header = () => {
         </Link>
         <Link
           className={`hover:text-yellow-500 ${
-            pathname == "/quiz-categories" && "active-link"
+            pathname.includes("/quiz-categories") && "active-link"
           }`}
           href={"/quiz-categories"}
         >
