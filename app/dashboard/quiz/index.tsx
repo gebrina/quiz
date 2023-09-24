@@ -32,6 +32,11 @@ const Quiz = () => {
       </h1>
     );
 
+  const handleUpdate = (quiz: any) => {
+    setQuiz(quiz);
+    setAction("update");
+  };
+
   return (
     <section
       className="container mx-auto shadow-md
@@ -77,7 +82,7 @@ const Quiz = () => {
 
                 <td>
                   <button
-                    onClick={() => setAction("update")}
+                    onClick={() => handleUpdate(quiz)}
                     className="text-md shadow-sm hover:bg-opacity-50 bg-green-500 bg-opacity-30 px-2 rounded-sm cursor-pointer"
                   >
                     Update

@@ -1,14 +1,15 @@
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useOutSideClick } from "../hooks/useOutsideClick";
 
 type SelectProps = {
   options: any[];
   setValue: (val: string) => void;
+  defalutValue: string;
 };
 
-const Select: FC<SelectProps> = ({ options, setValue }) => {
+const Select: FC<SelectProps> = ({ options, setValue, defalutValue }) => {
   const [open, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>();
+  const [selectedOption, setSelectedOption] = useState<string>(defalutValue);
 
   const selectRef = useRef<HTMLUListElement>(null);
 
@@ -19,6 +20,11 @@ const Select: FC<SelectProps> = ({ options, setValue }) => {
     setSelectedOption(option.label);
     setOpen(!open);
   };
+
+  useEffect(() => {
+    const option = options?.find((option) => option.id == defalutValue);
+    if (option?.name) setSelectedOption(option?.name);
+  }, [defalutValue, options]);
 
   const handleOpenState = (open: boolean) => setOpen(open);
 

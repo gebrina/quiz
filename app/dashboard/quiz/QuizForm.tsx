@@ -22,13 +22,13 @@ type Answer = {
 const QuizForm: FC<QuizFormProps> = ({ user, action, quiz }) => {
   const [cerateQuiz, { client, error, loading }] = useMutation(addQuizMutation);
   const { data: categories } = useQuery(getQuizCategoriesQuery);
-
-  const [category, setCategory] = useState<string>("");
-  const [answers, setAnswers] = useState<Answer[]>([]);
+  console.log(quiz);
+  const [category, setCategory] = useState<string>(quiz?.category?.id ?? "");
+  const [answers, setAnswers] = useState<Answer[]>(quiz?.answers ?? []);
 
   const initialQuizValues = {
-    question: "",
-    correctAnswer: "",
+    question: (quiz?.qusetion as string) ?? "",
+    correctAnswer: (quiz?.correctAnswer as string) ?? "",
   };
 
   const { values, handleChange, handleSubmit, errors, touched, resetForm } =
@@ -85,6 +85,7 @@ const QuizForm: FC<QuizFormProps> = ({ user, action, quiz }) => {
       >
         <div className="flex flex-col gap-4">
           <Select
+            defalutValue={category}
             options={categories?.findAllQuizCategory}
             setValue={setCategory}
           />
