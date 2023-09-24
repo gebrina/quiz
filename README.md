@@ -26,16 +26,14 @@
    2. <span style="color:green">Login </span>
    3. <span style="color:green">Update Profile</span>
 
-4. Sign up and Sing in
-
 ### Steps to run the project
 
 1. clone this repo using the following command
-   `git clone https://github.com/gebrina/quiz.git`
+   ```git clone https://github.com/gebrina/quiz.git```
 
 2. open the cloned projects directory and open terminal on it.
 
-3. install dependencies using this command `npm      install`
+3. install dependencies using this command ```npm install```
 
 4. clone quiz-api [read more about quiz-api](https://github.com/gebrina/quiz-api.git)
 
