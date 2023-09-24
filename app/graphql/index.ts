@@ -25,6 +25,28 @@ export const addQuizMutation = gql`
   }
 `;
 
+export const updateQuizMutation = gql`
+  mutation (
+    $categoryId: ID!
+    $question: String!
+    $correctAnswer: String!
+    $answers: [ChoiceInput!]
+  ) {
+    updateQuiz(
+      quizInput: {
+        category: { id: $categoryId }
+        qusetion: $question
+        correctAnswer: $correctAnswer
+        answers: $answers
+      }
+    ) {
+      id
+      qusetion
+      correctAnswer
+    }
+  }
+`;
+
 export const getAllQuizzesQuery = gql`
   query getAllQuizzes {
     findAllQuiz {

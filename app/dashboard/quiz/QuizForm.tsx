@@ -12,12 +12,14 @@ import Select from "@/app/elements/Select";
 type QuizFormProps = {
   user: string;
   action: string;
+  quiz: any;
 };
+
 type Answer = {
   answer: string;
 };
 
-const QuizForm: FC<QuizFormProps> = ({ user, action }) => {
+const QuizForm: FC<QuizFormProps> = ({ user, action, quiz }) => {
   const [cerateQuiz, { client, error, loading }] = useMutation(addQuizMutation);
   const { data: categories } = useQuery(getQuizCategoriesQuery);
 

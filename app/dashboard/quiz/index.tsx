@@ -10,6 +10,7 @@ import QuizForm from "./QuizForm";
 const Quiz = () => {
   const loggedInUser: any = getLoggedInUser();
   const [action, setAction] = useState<string>("");
+  const [quiz, setQuiz] = useState<any>();
   const router = useRouter();
   const { data, loading, error } = useQuery(getAllQuizzesQuery);
 
@@ -38,7 +39,9 @@ const Quiz = () => {
       text-xl
   "
     >
-      {action && <QuizForm user={loggedInUser.user.id} action={action} />}
+      {action && (
+        <QuizForm user={loggedInUser.user.id} action={action} quiz={quiz} />
+      )}
       <section className="text-lg">
         <table className="w-full border-l-2 my-5">
           <caption className="text-3xl px-12 py-2 mb-2 underline decoration-yellow-500">
