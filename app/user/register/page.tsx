@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMutation } from "@apollo/client";
 import { registerValidation } from "@/app/validation";
 import { useFormik } from "formik";
@@ -37,6 +38,9 @@ const Register = () => {
 
   return (
     <section className="text-slate-300 min-h-[80vh]  flex flex-col items-center justify-center">
+      <h1 className="text-center text-slate-300 text-3xl mb-3">
+        Create Account
+      </h1>
       <form
         className="flex flex-col gap-2 sm:w-3/4 md:w-1/5"
         onSubmit={handleSubmit}
@@ -100,6 +104,15 @@ const Register = () => {
           Register
         </button>
       </form>
+      <p className="text-slate-200 text-lg mt-3">
+        Aleardy have acount
+        <Link
+          className="px-1 text-yellow-500 hover:underline"
+          href={"/user/register"}
+        >
+          sign in
+        </Link>
+      </p>
       {loading && (
         <p className="text-lg text-center text-slate-300">Registering...</p>
       )}
