@@ -108,7 +108,7 @@ const Register = () => {
         Aleardy have acount
         <Link
           className="px-1 text-yellow-500 hover:underline"
-          href={"/user/register"}
+          href={"/user/login"}
         >
           sign in
         </Link>
