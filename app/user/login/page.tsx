@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { getLoggedInUser, setLoggedInUser } from "@/app/lib";
 import { useQuizContext } from "@/app/context/quiz";
+import Link from "next/link";
 
 const Page = () => {
   const [authUser, { data, loading, error }] = useMutation(LoginMutation, {
@@ -42,7 +43,7 @@ const Page = () => {
     if (user) {
       location.href = location.origin + "/dashboard";
     }
-  }, [data, loading]);
+  }, [data, loading, handleUserLogin]);
 
   if (loading)
     return (
@@ -53,6 +54,9 @@ const Page = () => {
 
   return (
     <section className="flex items-center justify-center h-[80vh] flex-col">
+      <h1 className="text-center text-slate-300 text-3xl mb-3">
+        LoGin & Create Quiz
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="text-slate-300 w-full sm:w-1/4 md:w-1/5 text-md flex flex-col gap-4"
@@ -92,6 +96,15 @@ const Page = () => {
           Login
         </button>
       </form>
+      <p className="text-slate-200 text-lg mt-3">
+        Don&apos;t have acount
+        <Link
+          className="px-1 text-yellow-500 hover:underline"
+          href={"/user/register"}
+        >
+          create account
+        </Link>
+      </p>
       {error && (
         <h1 className="text-lg text-red-500 text-center my-10">
           Error: {error.message}
