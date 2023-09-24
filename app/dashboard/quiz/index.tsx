@@ -11,6 +11,7 @@ const Quiz = () => {
   const loggedInUser: any = getLoggedInUser();
   const [action, setAction] = useState<string>("");
   const [quiz, setQuiz] = useState<any>();
+
   const router = useRouter();
   const { data, loading, error } = useQuery(getAllQuizzesQuery);
 
@@ -37,6 +38,11 @@ const Quiz = () => {
     setAction("update");
   };
 
+  const handleAddQuiz = () => {
+    setAction("new");
+    setQuiz("");
+  };
+
   return (
     <section
       className="container mx-auto shadow-md
@@ -45,7 +51,12 @@ const Quiz = () => {
   "
     >
       {action && (
-        <QuizForm user={loggedInUser.user.id} action={action} quiz={quiz} />
+        <QuizForm
+          user={loggedInUser.user.id}
+          action={action}
+          quiz={quiz}
+          setAction={setAction}
+        />
       )}
       <section className="text-lg">
         <table className="w-full border-l-2 my-5">
@@ -53,7 +64,7 @@ const Quiz = () => {
             Quizzes
             {!action && (
               <button
-                onClick={() => setAction("new")}
+                onClick={handleAddQuiz}
                 className="px-3 text-[22px] border-[1px]
                 bg-green-900
                 hover:bg-opacity-80
