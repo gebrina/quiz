@@ -27,13 +27,17 @@ export const addQuizMutation = gql`
 
 export const updateQuizMutation = gql`
   mutation (
+    $quizId: ID!
+    $user: ID!
     $categoryId: ID!
     $question: String!
     $correctAnswer: String!
-    $answers: [ChoiceInput!]
+    $answers: [ChoiceInput!]!
   ) {
     updateQuiz(
       quizInput: {
+        id: $quizId
+        user: { id: $user }
         category: { id: $categoryId }
         qusetion: $question
         correctAnswer: $correctAnswer
@@ -50,6 +54,7 @@ export const updateQuizMutation = gql`
 export const getAllQuizzesQuery = gql`
   query getAllQuizzes {
     findAllQuiz {
+      id
       qusetion
       correctAnswer
       category {
