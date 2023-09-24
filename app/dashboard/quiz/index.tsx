@@ -1,7 +1,7 @@
 "use client";
 
-import { getAllQuizzesQuery } from "@/app/graphql";
-import { useQuery } from "@apollo/client";
+import { deleteQuizMutation, getAllQuizzesQuery } from "@/app/graphql";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getLoggedInUser } from "@/app/lib";
@@ -9,6 +9,10 @@ import QuizForm from "./QuizForm";
 
 const Quiz = () => {
   const loggedInUser: any = getLoggedInUser();
+  const [deleteQuiz, { error: delteError, loading: deleteError }] = useMutation(
+    deleteQuizMutation,
+    { errorPolicy: "all" }
+  );
   const [action, setAction] = useState<string>("");
   const [quiz, setQuiz] = useState<any>();
 
@@ -41,6 +45,19 @@ const Quiz = () => {
   const handleAddQuiz = () => {
     setAction("new");
     setQuiz("");
+  };
+
+  const handleDeleteQuiz = (quizId: string) => {
+    deleteQuiz({
+      variables: {
+        quizId,
+      },
+      refetchQueries: [
+        {
+          query: getAllQuizzesQuery,
+        },
+      ],
+    });
   };
 
   return (
@@ -100,7 +117,10 @@ const Quiz = () => {
                   </button>
                 </td>
                 <td className="py-2">
-                  <button className="text-md shadow-sm hover:bg-opacity-50 bg-red-500 bg-opacity-90 px-2 rounded-sm cursor-pointer">
+                  <button
+                    onClick={() => handleDeleteQuiz(quiz.id)}
+                    className="text-md shadow-sm hover:bg-opacity-50 bg-red-500 bg-opacity-90 px-2 rounded-sm cursor-pointer"
+                  >
                     Delete
                   </button>
                 </td>

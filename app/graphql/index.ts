@@ -51,6 +51,14 @@ export const updateQuizMutation = gql`
   }
 `;
 
+export const deleteQuizMutation = gql`
+  mutation ($quizId: String!) {
+    deleteQuiz(quizId: $quizId) {
+      id
+    }
+  }
+`;
+
 export const getAllQuizzesQuery = gql`
   query getAllQuizzes {
     findAllQuiz {
