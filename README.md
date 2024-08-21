@@ -39,7 +39,7 @@
 
 5. After starting quiz-api the backend you can start the front-end app using this command `npm run dev`
 
-## Used Technoliges
+## Used Libraries and Packages
 
 1. **React (Next JS)** - for the creation of the web app.
 2. **GraphQL, Apollo Client** - for querying data from quiz-api
